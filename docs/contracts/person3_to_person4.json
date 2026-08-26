@@ -1,0 +1,10 @@
+{
+  "vehicle_id": "VEH_8421",
+  "trajectory": [
+    {"camera": "C01", "time": "2026-08-26T10:02:14", "confidence": 0.98},
+    {"camera": "C02", "time": "2026-08-26T10:04:32", "confidence": 0.94},
+    {"camera": "C04", "time": "2026-08-26T10:07:51", "confidence": 0.89}
+  ],
+  "total_distance_km": 8.4,
+  "duration_seconds": 623
+}

@@ -1,0 +1,17 @@
+{
+  "cameras": [
+    {"camera_id": "C01", "lat": 12.9716, "lon": 77.5946},
+    {"camera_id": "C02", "lat": 12.9720, "lon": 77.6010},
+    {"camera_id": "C04", "lat": 12.9755, "lon": 77.6050},
+    {"camera_id": "C05", "lat": 12.9790, "lon": 77.6090},
+    {"camera_id": "C06", "lat": 12.9810, "lon": 77.6120},
+    {"camera_id": "C07", "lat": 12.9830, "lon": 77.6150}
+  ],
+  "edges": [
+    {"from": "C01", "to": "C02", "distance_km": 1.1, "expected_time_seconds_min": 120, "expected_time_seconds_max": 300, "historical_probability": 0.73},
+    {"from": "C02", "to": "C04", "distance_km": 2.1, "expected_time_seconds_min": 120, "expected_time_seconds_max": 300, "historical_probability": 0.68},
+    {"from": "C04", "to": "C05", "distance_km": 1.4, "expected_time_seconds_min": 90, "expected_time_seconds_max": 240, "historical_probability": 0.61},
+    {"from": "C05", "to": "C06", "distance_km": 1.8, "expected_time_seconds_min": 100, "expected_time_seconds_max": 260, "historical_probability": 0.55},
+    {"from": "C05", "to": "C07", "distance_km": 2.4, "expected_time_seconds_min": 150, "expected_time_seconds_max": 330, "historical_probability": 0.45}
+  ]
+}
