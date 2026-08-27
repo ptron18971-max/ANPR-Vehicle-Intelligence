@@ -1,9 +1,9 @@
 -- Camera (canonical table)
 CREATE TABLE camera (
     camera_id      VARCHAR PRIMARY KEY,
-    location       GEOGRAPHY(POINT),
+    location       GEOGRAPHY(POINT, 4326),
     road_segment   VARCHAR,
-    status         VARCHAR,
+    status         VARCHAR CHECK (status IN ('active', 'offline')),
     installed_at   TIMESTAMPTZ
 );
 
@@ -24,8 +24,8 @@ CREATE TABLE observation (
     timestamp              TIMESTAMPTZ NOT NULL,
     local_track_id         VARCHAR,
     plate_text             VARCHAR,
-    plate_confidence       FLOAT,
-    detection_confidence   FLOAT,
+    plate_confidence       FLOAT CHECK (plate_confidence BETWEEN 0 AND 1),
+    detection_confidence   FLOAT CHECK (detection_confidence BETWEEN 0 AND 1),
     vehicle_type           VARCHAR,
     vehicle_color          VARCHAR,
     vehicle_crop_ref       VARCHAR,
@@ -33,16 +33,14 @@ CREATE TABLE observation (
 );
 
 -- Vehicle Identity Links (Person 2 to Person 3)
+-- Note: camera_id, timestamp, plate_text removed — derivable via observation_id join (see note below)
 CREATE TABLE vehicle_identity_links (
     id                       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     vehicle_id               VARCHAR REFERENCES vehicles(vehicle_id),
     observation_id           UUID REFERENCES observation(observation_id),
-    camera_id                VARCHAR REFERENCES camera(camera_id),
-    timestamp                 TIMESTAMPTZ NOT NULL,
-    plate_text                VARCHAR,
     embedding_ref             VARCHAR,
-    identity_confidence       FLOAT,
-    appearance_confidence     FLOAT,
+    identity_confidence       FLOAT CHECK (identity_confidence BETWEEN 0 AND 1),
+    appearance_confidence     FLOAT CHECK (appearance_confidence BETWEEN 0 AND 1),
     supporting_evidence       JSONB
 );
 
@@ -54,7 +52,7 @@ CREATE TABLE trajectory (
     end_time                 TIMESTAMPTZ,
     distance_meters           FLOAT,
     duration                   INTERVAL,
-    trajectory_confidence       FLOAT
+    trajectory_confidence       FLOAT CHECK (trajectory_confidence BETWEEN 0 AND 1)
 );
 
 -- Trajectory Observation (Person 3) — one row per camera point in a trajectory
@@ -62,11 +60,12 @@ CREATE TABLE trajectory_observation (
     trajectory_observation_id   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     trajectory_id                 UUID REFERENCES trajectory(trajectory_id),
     camera_id                      VARCHAR REFERENCES camera(camera_id),
-    timestamp                       TIMESTAMPTZ NOT NULL,
+    timestamp                       TIMESTAMPTZ,  -- nullable: inferred points may have no observed timestamp
     sequence_number                  INTEGER,
-    status                             VARCHAR,   -- CONFIRMED / INFERRED
-    confidence                         FLOAT,
-    source_observation_id               UUID REFERENCES observation(observation_id)
+    status                             VARCHAR CHECK (status IN ('CONFIRMED', 'INFERRED')),
+    confidence                         FLOAT CHECK (confidence BETWEEN 0 AND 1),
+    source_observation_id               UUID REFERENCES observation(observation_id),
+    UNIQUE (trajectory_id, sequence_number)
 );
 
 -- Trajectory Transition (Person 3) — one row per camera-to-camera hop
@@ -79,8 +78,8 @@ CREATE TABLE trajectory_transition (
     to_timestamp                 TIMESTAMPTZ,
     travel_time_sec                INTEGER,
     distance_meters                 FLOAT,
-    confidence                       FLOAT,
-    status                             VARCHAR   -- CONFIRMED / INFERRED
+    confidence                       FLOAT CHECK (confidence BETWEEN 0 AND 1),
+    status                             VARCHAR CHECK (status IN ('CONFIRMED', 'INFERRED'))
 );
 
 -- Intelligence Events / Alerts (Person 4 to Person 5)
@@ -89,29 +88,10 @@ CREATE TABLE intelligence_events (
     vehicle_id           VARCHAR REFERENCES vehicles(vehicle_id),
     event_type            VARCHAR,
     severity                VARCHAR,
-    confidence               FLOAT,
+    confidence               FLOAT CHECK (confidence BETWEEN 0 AND 1),
     reason                     TEXT,
     camera_range               VARCHAR[],
     time_range_start           TIMESTAMPTZ,
     time_range_end             TIMESTAMPTZ,
     created_at                  TIMESTAMPTZ DEFAULT now()
-);
-
--- Traffic Analytics (Person 4) — density, avg speed, route density, congestion. TO CONFIRM with Person 4.
-CREATE TABLE traffic_analytics (
-    analytics_id   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    camera_id       VARCHAR REFERENCES camera(camera_id),
-    time_bucket       TIMESTAMPTZ,
-    metric_type        VARCHAR,   -- density / avg_speed / route_density / congestion
-    value                FLOAT,
-    unit                  VARCHAR
-);
-
--- OD Matrix (Person 4) — Origin-Destination analysis. TO CONFIRM with Person 4.
-CREATE TABLE od_matrix (
-    od_id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    origin_zone       VARCHAR,
-    destination_zone  VARCHAR,
-    time_bucket       TIMESTAMPTZ,
-    vehicle_count     INTEGER
 );
