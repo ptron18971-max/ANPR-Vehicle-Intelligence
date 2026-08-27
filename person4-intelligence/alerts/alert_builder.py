@@ -33,10 +33,22 @@ def build_route_alert(anomaly):
     }
 
 
-def build_alerts(travel_time_anomalies, route_anomalies):
-    """Convenience: combine both anomaly types for one vehicle into a
+def build_blacklist_alert(anomaly):
+    """anomaly: one item from anomaly.blacklist_check.check_trajectory()."""
+    return {
+        "vehicle_id": anomaly["vehicle_id"],
+        "alert_type": "BLACKLIST_MATCH",
+        "severity": "HIGH",
+        "confidence": 1.0,
+        "reason": anomaly["reason"],
+    }
+
+
+def build_alerts(travel_time_anomalies, route_anomalies, blacklist_anomalies=()):
+    """Convenience: combine all anomaly types for one vehicle into a
     flat list of alert contract dicts.
     """
     alerts = [build_travel_time_alert(a) for a in travel_time_anomalies]
     alerts.extend(build_route_alert(a) for a in route_anomalies)
+    alerts.extend(build_blacklist_alert(a) for a in blacklist_anomalies)
     return alerts

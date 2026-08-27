@@ -1,8 +1,7 @@
 """Flag trajectory transitions that skip the known camera graph entirely,
 or use an edge with very low historical probability.
 """
-
-RARE_EDGE_THRESHOLD = 0.2  # historical_probability below this counts as unusual
+from config import RARE_EDGE_PROBABILITY_THRESHOLD
 
 
 def _find_edge(graph, from_camera, to_camera):
@@ -12,7 +11,7 @@ def _find_edge(graph, from_camera, to_camera):
     return None
 
 
-def check_trajectory(graph, trajectory_record):
+def check_trajectory(graph, trajectory_record, rare_threshold=RARE_EDGE_PROBABILITY_THRESHOLD):
     """Return a list of anomaly dicts for transitions that either aren't
     in the camera graph at all, or are graph edges with low historical
     probability.
@@ -29,7 +28,7 @@ def check_trajectory(graph, trajectory_record):
                 "to_camera": b["camera"],
                 "reason": f"No known route from {a['camera']} to {b['camera']} — unexpected camera jump",
             })
-        elif edge["historical_probability"] < RARE_EDGE_THRESHOLD:
+        elif edge["historical_probability"] < rare_threshold:
             anomalies.append({
                 "vehicle_id": trajectory_record["vehicle_id"],
                 "from_camera": a["camera"],

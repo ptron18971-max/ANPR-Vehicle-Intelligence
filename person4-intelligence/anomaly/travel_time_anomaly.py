@@ -4,14 +4,13 @@ from the camera graph's expected range.
 from datetime import datetime
 
 from analytics.travel_time import expected_range
+from config import TRAVEL_TIME_DEVIATION_THRESHOLD
 
-DEVIATION_THRESHOLD = 2.0  # observed / expected_max ratio that triggers a flag
 
-
-def check_trajectory(graph, trajectory_record):
+def check_trajectory(graph, trajectory_record, threshold=TRAVEL_TIME_DEVIATION_THRESHOLD):
     """Return a list of anomaly dicts, one per transition that exceeds
-    DEVIATION_THRESHOLD times the expected max travel time. Empty list
-    means no anomaly found.
+    threshold times the expected max travel time. Empty list means no
+    anomaly found.
     """
     anomalies = []
     obs = trajectory_record["trajectory"]
@@ -22,7 +21,7 @@ def check_trajectory(graph, trajectory_record):
             continue  # not a known edge — route_anomaly.py handles this case
         expected_min, expected_max = rng
         observed = (datetime.fromisoformat(b["time"]) - datetime.fromisoformat(a["time"])).total_seconds()
-        if observed > expected_max * DEVIATION_THRESHOLD:
+        if observed > expected_max * threshold:
             deviation_pct = (observed / expected_max - 1) * 100
             anomalies.append({
                 "vehicle_id": trajectory_record["vehicle_id"],

@@ -42,3 +42,24 @@ def expected_range(graph, from_camera, to_camera):
         if e["from"] == from_camera and e["to"] == to_camera:
             return e["expected_time_seconds_min"], e["expected_time_seconds_max"]
     return None
+
+
+def _edge_distance(graph, from_camera, to_camera):
+    for e in graph["edges"]:
+        if e["from"] == from_camera and e["to"] == to_camera:
+            return e["distance_km"]
+    return None
+
+
+def average_speed_kmh(graph, trajectories):
+    """Return {(from, to): avg_speed_kmh} for every observed edge that
+    also exists in the camera graph (distance is only known there).
+    """
+    stats = edge_stats(trajectories)
+    speeds = {}
+    for pair, stat in stats.items():
+        distance_km = _edge_distance(graph, *pair)
+        if distance_km is None or stat["avg"] <= 0:
+            continue
+        speeds[pair] = round(distance_km / (stat["avg"] / 3600), 1)
+    return speeds
