@@ -1,10 +1,2011 @@
-{
-  "vehicle_id": "VEH_8421",
-  "trajectory": [
-    {"camera": "C01", "time": "2026-08-26T10:02:14", "confidence": 0.98},
-    {"camera": "C02", "time": "2026-08-26T10:04:32", "confidence": 0.94},
-    {"camera": "C04", "time": "2026-08-26T10:07:51", "confidence": 0.89}
-  ],
-  "total_distance_km": 8.4,
-  "duration_seconds": 623
-}
+[
+  {
+    "vehicle_id": "V001",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T09:54:00",
+    "end_time": "2026-08-27T09:56:35",
+    "camera_sequence": [
+      "C29",
+      "C30"
+    ],
+    "timestamps": [
+      "2026-08-27T09:54:00",
+      "2026-08-27T09:56:35"
+    ],
+    "observations": [
+      {
+        "camera_id": "C29",
+        "timestamp": "2026-08-27T09:54:00",
+        "status": "CONFIRMED",
+        "confidence": 0.98
+      },
+      {
+        "camera_id": "C30",
+        "timestamp": "2026-08-27T09:56:35",
+        "status": "CONFIRMED",
+        "confidence": 0.93
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C29",
+        "to_camera_id": "C30",
+        "travel_time_sec": 155.0,
+        "distance_meters": 1423,
+        "status": "CONFIRMED",
+        "confidence": 0.96
+      }
+    ],
+    "distance_meters": 1423,
+    "duration_sec": 155.0,
+    "trajectory_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V002",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:02:00",
+    "end_time": "2026-08-27T09:09:09",
+    "camera_sequence": [
+      "C17",
+      "C23",
+      "C29",
+      "C35"
+    ],
+    "timestamps": [
+      "2026-08-27T09:02:00",
+      "2026-08-27T09:04:33",
+      "2026-08-27T09:07:08",
+      "2026-08-27T09:09:09"
+    ],
+    "observations": [
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T09:02:00",
+        "status": "CONFIRMED",
+        "confidence": 0.86
+      },
+      {
+        "camera_id": "C23",
+        "timestamp": "2026-08-27T09:04:33",
+        "status": "INFERRED",
+        "confidence": 0.86
+      },
+      {
+        "camera_id": "C29",
+        "timestamp": "2026-08-27T09:07:08",
+        "status": "INFERRED",
+        "confidence": 0.86
+      },
+      {
+        "camera_id": "C35",
+        "timestamp": "2026-08-27T09:09:09",
+        "status": "CONFIRMED",
+        "confidence": 0.86
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C17",
+        "to_camera_id": "C23",
+        "travel_time_sec": 153.006772,
+        "distance_meters": 1239,
+        "status": "INFERRED",
+        "confidence": 0.86
+      },
+      {
+        "from_camera_id": "C23",
+        "to_camera_id": "C29",
+        "travel_time_sec": 155.911964,
+        "distance_meters": 642,
+        "status": "INFERRED",
+        "confidence": 0.86
+      },
+      {
+        "from_camera_id": "C29",
+        "to_camera_id": "C35",
+        "travel_time_sec": 120.081264,
+        "distance_meters": 770,
+        "status": "INFERRED",
+        "confidence": 0.86
+      }
+    ],
+    "distance_meters": 2651,
+    "duration_sec": 429.0,
+    "trajectory_confidence": 0.86
+  },
+  {
+    "vehicle_id": "V003",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T09:17:00",
+    "end_time": "2026-08-27T09:19:14",
+    "camera_sequence": [
+      "C34",
+      "C35"
+    ],
+    "timestamps": [
+      "2026-08-27T09:17:00",
+      "2026-08-27T09:19:14"
+    ],
+    "observations": [
+      {
+        "camera_id": "C34",
+        "timestamp": "2026-08-27T09:17:00",
+        "status": "CONFIRMED",
+        "confidence": 0.94
+      },
+      {
+        "camera_id": "C35",
+        "timestamp": "2026-08-27T09:19:14",
+        "status": "CONFIRMED",
+        "confidence": 0.88
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C34",
+        "to_camera_id": "C35",
+        "travel_time_sec": 134.0,
+        "distance_meters": 768,
+        "status": "CONFIRMED",
+        "confidence": 0.91
+      }
+    ],
+    "distance_meters": 768,
+    "duration_sec": 134.0,
+    "trajectory_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V004",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T08:17:00",
+    "end_time": "2026-08-27T08:21:01",
+    "camera_sequence": [
+      "C32",
+      "C33",
+      "C34"
+    ],
+    "timestamps": [
+      "2026-08-27T08:17:00",
+      "2026-08-27T08:18:47",
+      "2026-08-27T08:21:01"
+    ],
+    "observations": [
+      {
+        "camera_id": "C32",
+        "timestamp": "2026-08-27T08:17:00",
+        "status": "CONFIRMED",
+        "confidence": 0.96
+      },
+      {
+        "camera_id": "C33",
+        "timestamp": "2026-08-27T08:18:47",
+        "status": "INFERRED",
+        "confidence": 0.94
+      },
+      {
+        "camera_id": "C34",
+        "timestamp": "2026-08-27T08:21:01",
+        "status": "CONFIRMED",
+        "confidence": 0.93
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C32",
+        "to_camera_id": "C33",
+        "travel_time_sec": 107.764228,
+        "distance_meters": 682,
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "from_camera_id": "C33",
+        "to_camera_id": "C34",
+        "travel_time_sec": 133.235772,
+        "distance_meters": 950,
+        "status": "INFERRED",
+        "confidence": 0.94
+      }
+    ],
+    "distance_meters": 1632,
+    "duration_sec": 241.0,
+    "trajectory_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V005",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T08:16:00",
+    "end_time": "2026-08-27T08:25:10",
+    "camera_sequence": [
+      "C14",
+      "C20",
+      "C21",
+      "C22",
+      "C28"
+    ],
+    "timestamps": [
+      "2026-08-27T08:16:00",
+      "2026-08-27T08:19:01",
+      "2026-08-27T08:21:09",
+      "2026-08-27T08:22:59",
+      "2026-08-27T08:25:10"
+    ],
+    "observations": [
+      {
+        "camera_id": "C14",
+        "timestamp": "2026-08-27T08:16:00",
+        "status": "CONFIRMED",
+        "confidence": 0.92
+      },
+      {
+        "camera_id": "C20",
+        "timestamp": "2026-08-27T08:19:01",
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C21",
+        "timestamp": "2026-08-27T08:21:09",
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C22",
+        "timestamp": "2026-08-27T08:22:59",
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C28",
+        "timestamp": "2026-08-27T08:25:10",
+        "status": "CONFIRMED",
+        "confidence": 0.91
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C14",
+        "to_camera_id": "C20",
+        "travel_time_sec": 181.651376,
+        "distance_meters": 1161,
+        "status": "INFERRED",
+        "confidence": 0.92
+      },
+      {
+        "from_camera_id": "C20",
+        "to_camera_id": "C21",
+        "travel_time_sec": 128.165138,
+        "distance_meters": 1430,
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "from_camera_id": "C21",
+        "to_camera_id": "C22",
+        "travel_time_sec": 110.0,
+        "distance_meters": 1283,
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "from_camera_id": "C22",
+        "to_camera_id": "C28",
+        "travel_time_sec": 130.183486,
+        "distance_meters": 1116,
+        "status": "INFERRED",
+        "confidence": 0.91
+      }
+    ],
+    "distance_meters": 4990,
+    "duration_sec": 550.0,
+    "trajectory_confidence": 0.91
+  },
+  {
+    "vehicle_id": "V006",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:56:00",
+    "end_time": "2026-08-27T10:09:44",
+    "camera_sequence": [
+      "C09",
+      "C15",
+      "C21",
+      "C27",
+      "C33",
+      "C34"
+    ],
+    "timestamps": [
+      "2026-08-27T09:56:00",
+      "2026-08-27T09:58:16",
+      "2026-08-27T10:01:24",
+      "2026-08-27T10:04:29",
+      "2026-08-27T10:07:27",
+      "2026-08-27T10:09:44"
+    ],
+    "observations": [
+      {
+        "camera_id": "C09",
+        "timestamp": "2026-08-27T09:56:00",
+        "status": "CONFIRMED",
+        "confidence": 0.95
+      },
+      {
+        "camera_id": "C15",
+        "timestamp": "2026-08-27T09:58:16",
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "camera_id": "C21",
+        "timestamp": "2026-08-27T10:01:24",
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "camera_id": "C27",
+        "timestamp": "2026-08-27T10:04:29",
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "camera_id": "C33",
+        "timestamp": "2026-08-27T10:07:27",
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "camera_id": "C34",
+        "timestamp": "2026-08-27T10:09:44",
+        "status": "CONFIRMED",
+        "confidence": 0.96
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C09",
+        "to_camera_id": "C15",
+        "travel_time_sec": 136.3309,
+        "distance_meters": 852,
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "from_camera_id": "C15",
+        "to_camera_id": "C21",
+        "travel_time_sec": 188.457421,
+        "distance_meters": 719,
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "from_camera_id": "C21",
+        "to_camera_id": "C27",
+        "travel_time_sec": 184.447689,
+        "distance_meters": 1107,
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "from_camera_id": "C27",
+        "to_camera_id": "C33",
+        "travel_time_sec": 178.43309,
+        "distance_meters": 1446,
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "from_camera_id": "C33",
+        "to_camera_id": "C34",
+        "travel_time_sec": 136.3309,
+        "distance_meters": 950,
+        "status": "INFERRED",
+        "confidence": 0.95
+      }
+    ],
+    "distance_meters": 5074,
+    "duration_sec": 824.0,
+    "trajectory_confidence": 0.95
+  },
+  {
+    "vehicle_id": "V007",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:57:00",
+    "end_time": "2026-08-27T10:02:13",
+    "camera_sequence": [
+      "C16",
+      "C17",
+      "C18"
+    ],
+    "timestamps": [
+      "2026-08-27T09:57:00",
+      "2026-08-27T09:59:28",
+      "2026-08-27T10:02:13"
+    ],
+    "observations": [
+      {
+        "camera_id": "C16",
+        "timestamp": "2026-08-27T09:57:00",
+        "status": "CONFIRMED",
+        "confidence": 0.92
+      },
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T09:59:28",
+        "status": "INFERRED",
+        "confidence": 0.92
+      },
+      {
+        "camera_id": "C18",
+        "timestamp": "2026-08-27T10:02:13",
+        "status": "CONFIRMED",
+        "confidence": 0.92
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C16",
+        "to_camera_id": "C17",
+        "travel_time_sec": 148.752475,
+        "distance_meters": 1357,
+        "status": "INFERRED",
+        "confidence": 0.92
+      },
+      {
+        "from_camera_id": "C17",
+        "to_camera_id": "C18",
+        "travel_time_sec": 164.247525,
+        "distance_meters": 1257,
+        "status": "INFERRED",
+        "confidence": 0.92
+      }
+    ],
+    "distance_meters": 2614,
+    "duration_sec": 313.0,
+    "trajectory_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V008",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T08:17:00",
+    "end_time": "2026-08-27T08:19:53",
+    "camera_sequence": [
+      "C31",
+      "C32"
+    ],
+    "timestamps": [
+      "2026-08-27T08:17:00",
+      "2026-08-27T08:19:53"
+    ],
+    "observations": [
+      {
+        "camera_id": "C31",
+        "timestamp": "2026-08-27T08:17:00",
+        "status": "CONFIRMED",
+        "confidence": 0.93
+      },
+      {
+        "camera_id": "C32",
+        "timestamp": "2026-08-27T08:19:53",
+        "status": "CONFIRMED",
+        "confidence": 0.97
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C31",
+        "to_camera_id": "C32",
+        "travel_time_sec": 173.0,
+        "distance_meters": 1278,
+        "status": "CONFIRMED",
+        "confidence": 0.95
+      }
+    ],
+    "distance_meters": 1278,
+    "duration_sec": 173.0,
+    "trajectory_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V009",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:01:00",
+    "end_time": "2026-08-27T09:08:44",
+    "camera_sequence": [
+      "C16",
+      "C17",
+      "C23",
+      "C29"
+    ],
+    "timestamps": [
+      "2026-08-27T09:01:00",
+      "2026-08-27T09:03:24",
+      "2026-08-27T09:06:02",
+      "2026-08-27T09:08:44"
+    ],
+    "observations": [
+      {
+        "camera_id": "C16",
+        "timestamp": "2026-08-27T09:01:00",
+        "status": "CONFIRMED",
+        "confidence": 0.97
+      },
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T09:03:24",
+        "status": "INFERRED",
+        "confidence": 0.97
+      },
+      {
+        "camera_id": "C23",
+        "timestamp": "2026-08-27T09:06:02",
+        "status": "INFERRED",
+        "confidence": 0.97
+      },
+      {
+        "camera_id": "C29",
+        "timestamp": "2026-08-27T09:08:44",
+        "status": "CONFIRMED",
+        "confidence": 0.98
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C16",
+        "to_camera_id": "C17",
+        "travel_time_sec": 144.311015,
+        "distance_meters": 1357,
+        "status": "INFERRED",
+        "confidence": 0.97
+      },
+      {
+        "from_camera_id": "C17",
+        "to_camera_id": "C23",
+        "travel_time_sec": 158.341253,
+        "distance_meters": 1239,
+        "status": "INFERRED",
+        "confidence": 0.97
+      },
+      {
+        "from_camera_id": "C23",
+        "to_camera_id": "C29",
+        "travel_time_sec": 161.347732,
+        "distance_meters": 642,
+        "status": "INFERRED",
+        "confidence": 0.97
+      }
+    ],
+    "distance_meters": 3238,
+    "duration_sec": 464.0,
+    "trajectory_confidence": 0.97
+  },
+  {
+    "vehicle_id": "V010",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T08:11:00",
+    "end_time": "2026-08-27T08:14:45",
+    "camera_sequence": [
+      "C20",
+      "C21",
+      "C22"
+    ],
+    "timestamps": [
+      "2026-08-27T08:11:00",
+      "2026-08-27T08:13:01",
+      "2026-08-27T08:14:45"
+    ],
+    "observations": [
+      {
+        "camera_id": "C20",
+        "timestamp": "2026-08-27T08:11:00",
+        "status": "CONFIRMED",
+        "confidence": 0.94
+      },
+      {
+        "camera_id": "C21",
+        "timestamp": "2026-08-27T08:13:01",
+        "status": "INFERRED",
+        "confidence": 0.94
+      },
+      {
+        "camera_id": "C22",
+        "timestamp": "2026-08-27T08:14:45",
+        "status": "CONFIRMED",
+        "confidence": 0.95
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C20",
+        "to_camera_id": "C21",
+        "travel_time_sec": 121.080508,
+        "distance_meters": 1430,
+        "status": "INFERRED",
+        "confidence": 0.94
+      },
+      {
+        "from_camera_id": "C21",
+        "to_camera_id": "C22",
+        "travel_time_sec": 103.919492,
+        "distance_meters": 1283,
+        "status": "INFERRED",
+        "confidence": 0.94
+      }
+    ],
+    "distance_meters": 2713,
+    "duration_sec": 225.0,
+    "trajectory_confidence": 0.94
+  },
+  {
+    "vehicle_id": "V011",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T09:28:00",
+    "end_time": "2026-08-27T09:30:11",
+    "camera_sequence": [
+      "C11",
+      "C12"
+    ],
+    "timestamps": [
+      "2026-08-27T09:28:00",
+      "2026-08-27T09:30:11"
+    ],
+    "observations": [
+      {
+        "camera_id": "C11",
+        "timestamp": "2026-08-27T09:28:00",
+        "status": "CONFIRMED",
+        "confidence": 0.86
+      },
+      {
+        "camera_id": "C12",
+        "timestamp": "2026-08-27T09:30:11",
+        "status": "CONFIRMED",
+        "confidence": 0.95
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C11",
+        "to_camera_id": "C12",
+        "travel_time_sec": 131.0,
+        "distance_meters": 1031,
+        "status": "CONFIRMED",
+        "confidence": 0.91
+      }
+    ],
+    "distance_meters": 1031,
+    "duration_sec": 131.0,
+    "trajectory_confidence": 0.86
+  },
+  {
+    "vehicle_id": "V012",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T08:58:00",
+    "end_time": "2026-08-27T09:11:25",
+    "camera_sequence": [
+      "C03",
+      "C09",
+      "C16",
+      "C22",
+      "C28"
+    ],
+    "timestamps": [
+      "2026-08-27T08:58:00",
+      "2026-08-27T09:01:22",
+      "2026-08-27T09:06:04",
+      "2026-08-27T09:09:13",
+      "2026-08-27T09:11:25"
+    ],
+    "observations": [
+      {
+        "camera_id": "C03",
+        "timestamp": "2026-08-27T08:58:00",
+        "status": "CONFIRMED",
+        "confidence": 0.92
+      },
+      {
+        "camera_id": "C09",
+        "timestamp": "2026-08-27T09:01:22",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C16",
+        "timestamp": "2026-08-27T09:06:04",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C22",
+        "timestamp": "2026-08-27T09:09:13",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C28",
+        "timestamp": "2026-08-27T09:11:25",
+        "status": "CONFIRMED",
+        "confidence": 0.87
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C03",
+        "to_camera_id": "C09",
+        "travel_time_sec": 202.015209,
+        "distance_meters": 667,
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "from_camera_id": "C09",
+        "to_camera_id": "C16",
+        "travel_time_sec": 282.617237,
+        "distance_meters": 860,
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "from_camera_id": "C16",
+        "to_camera_id": "C22",
+        "travel_time_sec": 188.751584,
+        "distance_meters": 1157,
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "from_camera_id": "C22",
+        "to_camera_id": "C28",
+        "travel_time_sec": 131.61597,
+        "distance_meters": 1116,
+        "status": "INFERRED",
+        "confidence": 0.88
+      }
+    ],
+    "distance_meters": 3800,
+    "duration_sec": 805.0,
+    "trajectory_confidence": 0.87
+  },
+  {
+    "vehicle_id": "V013",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T09:37:00",
+    "end_time": "2026-08-27T09:39:10",
+    "camera_sequence": [
+      "C33",
+      "C34"
+    ],
+    "timestamps": [
+      "2026-08-27T09:37:00",
+      "2026-08-27T09:39:10"
+    ],
+    "observations": [
+      {
+        "camera_id": "C33",
+        "timestamp": "2026-08-27T09:37:00",
+        "status": "CONFIRMED",
+        "confidence": 0.92
+      },
+      {
+        "camera_id": "C34",
+        "timestamp": "2026-08-27T09:39:10",
+        "status": "CONFIRMED",
+        "confidence": 0.9
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C33",
+        "to_camera_id": "C34",
+        "travel_time_sec": 130.0,
+        "distance_meters": 950,
+        "status": "CONFIRMED",
+        "confidence": 0.91
+      }
+    ],
+    "distance_meters": 950,
+    "duration_sec": 130.0,
+    "trajectory_confidence": 0.9
+  },
+  {
+    "vehicle_id": "V014",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:17:00",
+    "end_time": "2026-08-27T09:20:50",
+    "camera_sequence": [
+      "C20",
+      "C21",
+      "C22"
+    ],
+    "timestamps": [
+      "2026-08-27T09:17:00",
+      "2026-08-27T09:19:03",
+      "2026-08-27T09:20:50"
+    ],
+    "observations": [
+      {
+        "camera_id": "C20",
+        "timestamp": "2026-08-27T09:17:00",
+        "status": "CONFIRMED",
+        "confidence": 0.95
+      },
+      {
+        "camera_id": "C21",
+        "timestamp": "2026-08-27T09:19:03",
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "camera_id": "C22",
+        "timestamp": "2026-08-27T09:20:50",
+        "status": "CONFIRMED",
+        "confidence": 0.96
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C20",
+        "to_camera_id": "C21",
+        "travel_time_sec": 123.771186,
+        "distance_meters": 1430,
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "from_camera_id": "C21",
+        "to_camera_id": "C22",
+        "travel_time_sec": 106.228814,
+        "distance_meters": 1283,
+        "status": "INFERRED",
+        "confidence": 0.95
+      }
+    ],
+    "distance_meters": 2713,
+    "duration_sec": 230.0,
+    "trajectory_confidence": 0.95
+  },
+  {
+    "vehicle_id": "V015",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T09:10:00",
+    "end_time": "2026-08-27T09:12:11",
+    "camera_sequence": [
+      "C11",
+      "C12"
+    ],
+    "timestamps": [
+      "2026-08-27T09:10:00",
+      "2026-08-27T09:12:11"
+    ],
+    "observations": [
+      {
+        "camera_id": "C11",
+        "timestamp": "2026-08-27T09:10:00",
+        "status": "CONFIRMED",
+        "confidence": 0.92
+      },
+      {
+        "camera_id": "C12",
+        "timestamp": "2026-08-27T09:12:11",
+        "status": "CONFIRMED",
+        "confidence": 0.96
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C11",
+        "to_camera_id": "C12",
+        "travel_time_sec": 131.0,
+        "distance_meters": 1031,
+        "status": "CONFIRMED",
+        "confidence": 0.94
+      }
+    ],
+    "distance_meters": 1031,
+    "duration_sec": 131.0,
+    "trajectory_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V016",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T08:41:00",
+    "end_time": "2026-08-27T08:49:46",
+    "camera_sequence": [
+      "C04",
+      "C05",
+      "C11",
+      "C12"
+    ],
+    "timestamps": [
+      "2026-08-27T08:41:00",
+      "2026-08-27T08:44:14",
+      "2026-08-27T08:47:30",
+      "2026-08-27T08:49:46"
+    ],
+    "observations": [
+      {
+        "camera_id": "C04",
+        "timestamp": "2026-08-27T08:41:00",
+        "status": "CONFIRMED",
+        "confidence": 0.86
+      },
+      {
+        "camera_id": "C05",
+        "timestamp": "2026-08-27T08:44:14",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C11",
+        "timestamp": "2026-08-27T08:47:30",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C12",
+        "timestamp": "2026-08-27T08:49:46",
+        "status": "CONFIRMED",
+        "confidence": 0.92
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C04",
+        "to_camera_id": "C05",
+        "travel_time_sec": 194.478927,
+        "distance_meters": 1478,
+        "status": "INFERRED",
+        "confidence": 0.88
+      },
+      {
+        "from_camera_id": "C05",
+        "to_camera_id": "C11",
+        "travel_time_sec": 196.494253,
+        "distance_meters": 912,
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "from_camera_id": "C11",
+        "to_camera_id": "C12",
+        "travel_time_sec": 135.02682,
+        "distance_meters": 1031,
+        "status": "INFERRED",
+        "confidence": 0.91
+      }
+    ],
+    "distance_meters": 3421,
+    "duration_sec": 526.0,
+    "trajectory_confidence": 0.86
+  },
+  {
+    "vehicle_id": "V017",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T08:24:00",
+    "end_time": "2026-08-27T08:31:19",
+    "camera_sequence": [
+      "C11",
+      "C12",
+      "C18",
+      "C24"
+    ],
+    "timestamps": [
+      "2026-08-27T08:24:00",
+      "2026-08-27T08:26:18",
+      "2026-08-27T08:29:17",
+      "2026-08-27T08:31:19"
+    ],
+    "observations": [
+      {
+        "camera_id": "C11",
+        "timestamp": "2026-08-27T08:24:00",
+        "status": "CONFIRMED",
+        "confidence": 0.96
+      },
+      {
+        "camera_id": "C12",
+        "timestamp": "2026-08-27T08:26:18",
+        "status": "INFERRED",
+        "confidence": 0.96
+      },
+      {
+        "camera_id": "C18",
+        "timestamp": "2026-08-27T08:29:17",
+        "status": "INFERRED",
+        "confidence": 0.96
+      },
+      {
+        "camera_id": "C24",
+        "timestamp": "2026-08-27T08:31:19",
+        "status": "CONFIRMED",
+        "confidence": 0.97
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C11",
+        "to_camera_id": "C12",
+        "travel_time_sec": 138.740566,
+        "distance_meters": 1031,
+        "status": "INFERRED",
+        "confidence": 0.96
+      },
+      {
+        "from_camera_id": "C12",
+        "to_camera_id": "C18",
+        "travel_time_sec": 179.120283,
+        "distance_meters": 1096,
+        "status": "INFERRED",
+        "confidence": 0.96
+      },
+      {
+        "from_camera_id": "C18",
+        "to_camera_id": "C24",
+        "travel_time_sec": 121.139151,
+        "distance_meters": 733,
+        "status": "INFERRED",
+        "confidence": 0.96
+      }
+    ],
+    "distance_meters": 2860,
+    "duration_sec": 439.0,
+    "trajectory_confidence": 0.96
+  },
+  {
+    "vehicle_id": "V018",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T09:58:00",
+    "end_time": "2026-08-27T10:00:36",
+    "camera_sequence": [
+      "C17",
+      "C18"
+    ],
+    "timestamps": [
+      "2026-08-27T09:58:00",
+      "2026-08-27T10:00:36"
+    ],
+    "observations": [
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T09:58:00",
+        "status": "CONFIRMED",
+        "confidence": 0.94
+      },
+      {
+        "camera_id": "C18",
+        "timestamp": "2026-08-27T10:00:36",
+        "status": "CONFIRMED",
+        "confidence": 0.93
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C17",
+        "to_camera_id": "C18",
+        "travel_time_sec": 156.0,
+        "distance_meters": 1257,
+        "status": "CONFIRMED",
+        "confidence": 0.94
+      }
+    ],
+    "distance_meters": 1257,
+    "duration_sec": 156.0,
+    "trajectory_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V019",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T08:40:00",
+    "end_time": "2026-08-27T08:42:55",
+    "camera_sequence": [
+      "C14",
+      "C20"
+    ],
+    "timestamps": [
+      "2026-08-27T08:40:00",
+      "2026-08-27T08:42:55"
+    ],
+    "observations": [
+      {
+        "camera_id": "C14",
+        "timestamp": "2026-08-27T08:40:00",
+        "status": "CONFIRMED",
+        "confidence": 0.9
+      },
+      {
+        "camera_id": "C20",
+        "timestamp": "2026-08-27T08:42:55",
+        "status": "CONFIRMED",
+        "confidence": 0.88
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C14",
+        "to_camera_id": "C20",
+        "travel_time_sec": 175.0,
+        "distance_meters": 1161,
+        "status": "CONFIRMED",
+        "confidence": 0.89
+      }
+    ],
+    "distance_meters": 1161,
+    "duration_sec": 175.0,
+    "trajectory_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V020",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T08:24:00",
+    "end_time": "2026-08-27T08:25:59",
+    "camera_sequence": [
+      "C18",
+      "C24"
+    ],
+    "timestamps": [
+      "2026-08-27T08:24:00",
+      "2026-08-27T08:25:59"
+    ],
+    "observations": [
+      {
+        "camera_id": "C18",
+        "timestamp": "2026-08-27T08:24:00",
+        "status": "CONFIRMED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C24",
+        "timestamp": "2026-08-27T08:25:59",
+        "status": "CONFIRMED",
+        "confidence": 0.85
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C18",
+        "to_camera_id": "C24",
+        "travel_time_sec": 119.0,
+        "distance_meters": 733,
+        "status": "CONFIRMED",
+        "confidence": 0.87
+      }
+    ],
+    "distance_meters": 733,
+    "duration_sec": 119.0,
+    "trajectory_confidence": 0.85
+  },
+  {
+    "vehicle_id": "V021",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T08:14:00",
+    "end_time": "2026-08-27T08:23:08",
+    "camera_sequence": [
+      "C13",
+      "C20",
+      "C26",
+      "C27"
+    ],
+    "timestamps": [
+      "2026-08-27T08:14:00",
+      "2026-08-27T08:18:07",
+      "2026-08-27T08:19:55",
+      "2026-08-27T08:23:08"
+    ],
+    "observations": [
+      {
+        "camera_id": "C13",
+        "timestamp": "2026-08-27T08:14:00",
+        "status": "CONFIRMED",
+        "confidence": 0.98
+      },
+      {
+        "camera_id": "C20",
+        "timestamp": "2026-08-27T08:18:07",
+        "status": "INFERRED",
+        "confidence": 0.92
+      },
+      {
+        "camera_id": "C26",
+        "timestamp": "2026-08-27T08:19:55",
+        "status": "INFERRED",
+        "confidence": 0.92
+      },
+      {
+        "camera_id": "C27",
+        "timestamp": "2026-08-27T08:23:08",
+        "status": "CONFIRMED",
+        "confidence": 0.86
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C13",
+        "to_camera_id": "C20",
+        "travel_time_sec": 247.739602,
+        "distance_meters": 2052,
+        "status": "INFERRED",
+        "confidence": 0.95
+      },
+      {
+        "from_camera_id": "C20",
+        "to_camera_id": "C26",
+        "travel_time_sec": 108.014467,
+        "distance_meters": 1163,
+        "status": "INFERRED",
+        "confidence": 0.92
+      },
+      {
+        "from_camera_id": "C26",
+        "to_camera_id": "C27",
+        "travel_time_sec": 192.245931,
+        "distance_meters": 756,
+        "status": "INFERRED",
+        "confidence": 0.89
+      }
+    ],
+    "distance_meters": 3971,
+    "duration_sec": 548.0,
+    "trajectory_confidence": 0.86
+  },
+  {
+    "vehicle_id": "V022",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:00:00",
+    "end_time": "2026-08-27T09:05:06",
+    "camera_sequence": [
+      "C17",
+      "C23",
+      "C30"
+    ],
+    "timestamps": [
+      "2026-08-27T09:00:00",
+      "2026-08-27T09:02:36",
+      "2026-08-27T09:05:06"
+    ],
+    "observations": [
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T09:00:00",
+        "status": "CONFIRMED",
+        "confidence": 0.94
+      },
+      {
+        "camera_id": "C23",
+        "timestamp": "2026-08-27T09:02:36",
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C30",
+        "timestamp": "2026-08-27T09:05:06",
+        "status": "CONFIRMED",
+        "confidence": 0.88
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C17",
+        "to_camera_id": "C23",
+        "travel_time_sec": 156.974026,
+        "distance_meters": 1239,
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "from_camera_id": "C23",
+        "to_camera_id": "C30",
+        "travel_time_sec": 149.025974,
+        "distance_meters": 1720,
+        "status": "INFERRED",
+        "confidence": 0.9
+      }
+    ],
+    "distance_meters": 2959,
+    "duration_sec": 306.0,
+    "trajectory_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V023",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:22:00",
+    "end_time": "2026-08-27T09:34:40",
+    "camera_sequence": [
+      "C09",
+      "C10",
+      "C17",
+      "C18",
+      "C24",
+      "C30"
+    ],
+    "timestamps": [
+      "2026-08-27T09:22:00",
+      "2026-08-27T09:23:58",
+      "2026-08-27T09:27:33",
+      "2026-08-27T09:30:11",
+      "2026-08-27T09:32:07",
+      "2026-08-27T09:34:40"
+    ],
+    "observations": [
+      {
+        "camera_id": "C09",
+        "timestamp": "2026-08-27T09:22:00",
+        "status": "CONFIRMED",
+        "confidence": 0.85
+      },
+      {
+        "camera_id": "C10",
+        "timestamp": "2026-08-27T09:23:58",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T09:27:33",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C18",
+        "timestamp": "2026-08-27T09:30:11",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C24",
+        "timestamp": "2026-08-27T09:32:07",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C30",
+        "timestamp": "2026-08-27T09:34:40",
+        "status": "CONFIRMED",
+        "confidence": 0.94
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C09",
+        "to_camera_id": "C10",
+        "travel_time_sec": 118.067885,
+        "distance_meters": 1008,
+        "status": "INFERRED",
+        "confidence": 0.87
+      },
+      {
+        "from_camera_id": "C10",
+        "to_camera_id": "C17",
+        "travel_time_sec": 215.300261,
+        "distance_meters": 843,
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "from_camera_id": "C17",
+        "to_camera_id": "C18",
+        "travel_time_sec": 157.754569,
+        "distance_meters": 1257,
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "from_camera_id": "C18",
+        "to_camera_id": "C24",
+        "travel_time_sec": 116.083551,
+        "distance_meters": 733,
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "from_camera_id": "C24",
+        "to_camera_id": "C30",
+        "travel_time_sec": 152.793734,
+        "distance_meters": 1136,
+        "status": "INFERRED",
+        "confidence": 0.92
+      }
+    ],
+    "distance_meters": 4977,
+    "duration_sec": 760.0,
+    "trajectory_confidence": 0.85
+  },
+  {
+    "vehicle_id": "V024",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T08:34:00",
+    "end_time": "2026-08-27T08:41:14",
+    "camera_sequence": [
+      "C10",
+      "C11",
+      "C17",
+      "C18"
+    ],
+    "timestamps": [
+      "2026-08-27T08:34:00",
+      "2026-08-27T08:36:16",
+      "2026-08-27T08:38:38",
+      "2026-08-27T08:41:14"
+    ],
+    "observations": [
+      {
+        "camera_id": "C10",
+        "timestamp": "2026-08-27T08:34:00",
+        "status": "CONFIRMED",
+        "confidence": 0.97
+      },
+      {
+        "camera_id": "C11",
+        "timestamp": "2026-08-27T08:36:16",
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T08:38:38",
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C18",
+        "timestamp": "2026-08-27T08:41:14",
+        "status": "CONFIRMED",
+        "confidence": 0.85
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C10",
+        "to_camera_id": "C11",
+        "travel_time_sec": 136.176072,
+        "distance_meters": 1486,
+        "status": "INFERRED",
+        "confidence": 0.94
+      },
+      {
+        "from_camera_id": "C11",
+        "to_camera_id": "C17",
+        "travel_time_sec": 142.054176,
+        "distance_meters": 1059,
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "from_camera_id": "C17",
+        "to_camera_id": "C18",
+        "travel_time_sec": 155.769752,
+        "distance_meters": 1257,
+        "status": "INFERRED",
+        "confidence": 0.88
+      }
+    ],
+    "distance_meters": 3802,
+    "duration_sec": 434.0,
+    "trajectory_confidence": 0.85
+  },
+  {
+    "vehicle_id": "V025",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T09:01:00",
+    "end_time": "2026-08-27T09:03:27",
+    "camera_sequence": [
+      "C24",
+      "C30"
+    ],
+    "timestamps": [
+      "2026-08-27T09:01:00",
+      "2026-08-27T09:03:27"
+    ],
+    "observations": [
+      {
+        "camera_id": "C24",
+        "timestamp": "2026-08-27T09:01:00",
+        "status": "CONFIRMED",
+        "confidence": 0.93
+      },
+      {
+        "camera_id": "C30",
+        "timestamp": "2026-08-27T09:03:27",
+        "status": "CONFIRMED",
+        "confidence": 0.96
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C24",
+        "to_camera_id": "C30",
+        "travel_time_sec": 147.0,
+        "distance_meters": 1136,
+        "status": "CONFIRMED",
+        "confidence": 0.95
+      }
+    ],
+    "distance_meters": 1136,
+    "duration_sec": 147.0,
+    "trajectory_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V026",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T08:33:00",
+    "end_time": "2026-08-27T08:45:41",
+    "camera_sequence": [
+      "C08",
+      "C15",
+      "C21",
+      "C27",
+      "C34"
+    ],
+    "timestamps": [
+      "2026-08-27T08:33:00",
+      "2026-08-27T08:36:24",
+      "2026-08-27T08:39:32",
+      "2026-08-27T08:42:36",
+      "2026-08-27T08:45:41"
+    ],
+    "observations": [
+      {
+        "camera_id": "C08",
+        "timestamp": "2026-08-27T08:33:00",
+        "status": "CONFIRMED",
+        "confidence": 0.88
+      },
+      {
+        "camera_id": "C15",
+        "timestamp": "2026-08-27T08:36:24",
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C21",
+        "timestamp": "2026-08-27T08:39:32",
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C27",
+        "timestamp": "2026-08-27T08:42:36",
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C34",
+        "timestamp": "2026-08-27T08:45:41",
+        "status": "CONFIRMED",
+        "confidence": 0.94
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C08",
+        "to_camera_id": "C15",
+        "travel_time_sec": 204.0,
+        "distance_meters": 1685,
+        "status": "INFERRED",
+        "confidence": 0.9
+      },
+      {
+        "from_camera_id": "C15",
+        "to_camera_id": "C21",
+        "travel_time_sec": 188.0,
+        "distance_meters": 719,
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "from_camera_id": "C21",
+        "to_camera_id": "C27",
+        "travel_time_sec": 184.0,
+        "distance_meters": 1107,
+        "status": "INFERRED",
+        "confidence": 0.91
+      },
+      {
+        "from_camera_id": "C27",
+        "to_camera_id": "C34",
+        "travel_time_sec": 185.0,
+        "distance_meters": 711,
+        "status": "INFERRED",
+        "confidence": 0.93
+      }
+    ],
+    "distance_meters": 4222,
+    "duration_sec": 761.0,
+    "trajectory_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V027",
+    "trajectory_status": "VALID",
+    "start_time": "2026-08-27T09:57:00",
+    "end_time": "2026-08-27T10:01:21",
+    "camera_sequence": [
+      "C10",
+      "C17"
+    ],
+    "timestamps": [
+      "2026-08-27T09:57:00",
+      "2026-08-27T10:01:21"
+    ],
+    "observations": [
+      {
+        "camera_id": "C10",
+        "timestamp": "2026-08-27T09:57:00",
+        "status": "CONFIRMED",
+        "confidence": 0.87
+      },
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T10:01:21",
+        "status": "CONFIRMED",
+        "confidence": 0.95
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C10",
+        "to_camera_id": "C17",
+        "travel_time_sec": 261.0,
+        "distance_meters": 843,
+        "status": "CONFIRMED",
+        "confidence": 0.91
+      }
+    ],
+    "distance_meters": 843,
+    "duration_sec": 261.0,
+    "trajectory_confidence": 0.87
+  },
+  {
+    "vehicle_id": "V028",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:55:00",
+    "end_time": "2026-08-27T10:10:31",
+    "camera_sequence": [
+      "C04",
+      "C10",
+      "C11",
+      "C17",
+      "C23",
+      "C29",
+      "C30"
+    ],
+    "timestamps": [
+      "2026-08-27T09:55:00",
+      "2026-08-27T09:57:48",
+      "2026-08-27T10:00:06",
+      "2026-08-27T10:02:30",
+      "2026-08-27T10:05:07",
+      "2026-08-27T10:07:47",
+      "2026-08-27T10:10:31"
+    ],
+    "observations": [
+      {
+        "camera_id": "C04",
+        "timestamp": "2026-08-27T09:55:00",
+        "status": "CONFIRMED",
+        "confidence": 0.91
+      },
+      {
+        "camera_id": "C10",
+        "timestamp": "2026-08-27T09:57:48",
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "camera_id": "C11",
+        "timestamp": "2026-08-27T10:00:06",
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T10:02:30",
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "camera_id": "C23",
+        "timestamp": "2026-08-27T10:05:07",
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "camera_id": "C29",
+        "timestamp": "2026-08-27T10:07:47",
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "camera_id": "C30",
+        "timestamp": "2026-08-27T10:10:31",
+        "status": "CONFIRMED",
+        "confidence": 0.96
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C04",
+        "to_camera_id": "C10",
+        "travel_time_sec": 168.097222,
+        "distance_meters": 862,
+        "status": "INFERRED",
+        "confidence": 0.92
+      },
+      {
+        "from_camera_id": "C10",
+        "to_camera_id": "C11",
+        "travel_time_sec": 138.257479,
+        "distance_meters": 1486,
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "from_camera_id": "C11",
+        "to_camera_id": "C17",
+        "travel_time_sec": 144.225427,
+        "distance_meters": 1059,
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "from_camera_id": "C17",
+        "to_camera_id": "C23",
+        "travel_time_sec": 157.155983,
+        "distance_meters": 1239,
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "from_camera_id": "C23",
+        "to_camera_id": "C29",
+        "travel_time_sec": 160.139957,
+        "distance_meters": 642,
+        "status": "INFERRED",
+        "confidence": 0.93
+      },
+      {
+        "from_camera_id": "C29",
+        "to_camera_id": "C30",
+        "travel_time_sec": 163.123932,
+        "distance_meters": 1423,
+        "status": "INFERRED",
+        "confidence": 0.95
+      }
+    ],
+    "distance_meters": 6711,
+    "duration_sec": 931.0,
+    "trajectory_confidence": 0.91
+  },
+  {
+    "vehicle_id": "V029",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:35:00",
+    "end_time": "2026-08-27T09:40:35",
+    "camera_sequence": [
+      "C22",
+      "C28",
+      "C34"
+    ],
+    "timestamps": [
+      "2026-08-27T09:35:00",
+      "2026-08-27T09:37:12",
+      "2026-08-27T09:40:35"
+    ],
+    "observations": [
+      {
+        "camera_id": "C22",
+        "timestamp": "2026-08-27T09:35:00",
+        "status": "CONFIRMED",
+        "confidence": 0.88
+      },
+      {
+        "camera_id": "C28",
+        "timestamp": "2026-08-27T09:37:12",
+        "status": "INFERRED",
+        "confidence": 0.9
+      },
+      {
+        "camera_id": "C34",
+        "timestamp": "2026-08-27T09:40:35",
+        "status": "CONFIRMED",
+        "confidence": 0.92
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C22",
+        "to_camera_id": "C28",
+        "travel_time_sec": 132.969231,
+        "distance_meters": 1116,
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "from_camera_id": "C28",
+        "to_camera_id": "C34",
+        "travel_time_sec": 202.030769,
+        "distance_meters": 1081,
+        "status": "INFERRED",
+        "confidence": 0.91
+      }
+    ],
+    "distance_meters": 2197,
+    "duration_sec": 335.0,
+    "trajectory_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V030",
+    "trajectory_status": "RECOVERED",
+    "start_time": "2026-08-27T09:02:00",
+    "end_time": "2026-08-27T09:07:33",
+    "camera_sequence": [
+      "C05",
+      "C11",
+      "C17"
+    ],
+    "timestamps": [
+      "2026-08-27T09:02:00",
+      "2026-08-27T09:05:10",
+      "2026-08-27T09:07:33"
+    ],
+    "observations": [
+      {
+        "camera_id": "C05",
+        "timestamp": "2026-08-27T09:02:00",
+        "status": "CONFIRMED",
+        "confidence": 0.94
+      },
+      {
+        "camera_id": "C11",
+        "timestamp": "2026-08-27T09:05:10",
+        "status": "INFERRED",
+        "confidence": 0.89
+      },
+      {
+        "camera_id": "C17",
+        "timestamp": "2026-08-27T09:07:33",
+        "status": "CONFIRMED",
+        "confidence": 0.85
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C05",
+        "to_camera_id": "C11",
+        "travel_time_sec": 190.985294,
+        "distance_meters": 912,
+        "status": "INFERRED",
+        "confidence": 0.92
+      },
+      {
+        "from_camera_id": "C11",
+        "to_camera_id": "C17",
+        "travel_time_sec": 142.014706,
+        "distance_meters": 1059,
+        "status": "INFERRED",
+        "confidence": 0.87
+      }
+    ],
+    "distance_meters": 1971,
+    "duration_sec": 333.0,
+    "trajectory_confidence": 0.85
+  },
+  {
+    "vehicle_id": "V901",
+    "trajectory_status": "INVALID_TIME",
+    "start_time": "2026-08-27T10:00:00",
+    "end_time": "2026-08-27T10:00:05",
+    "camera_sequence": [
+      "C01",
+      "C25"
+    ],
+    "timestamps": [
+      "2026-08-27T10:00:00",
+      "2026-08-27T10:00:05"
+    ],
+    "observations": [
+      {
+        "camera_id": "C01",
+        "timestamp": "2026-08-27T10:00:00",
+        "status": "CONFIRMED",
+        "confidence": 0.99
+      },
+      {
+        "camera_id": "C25",
+        "timestamp": "2026-08-27T10:00:05",
+        "status": "CONFIRMED",
+        "confidence": 0.99
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C01",
+        "to_camera_id": "C25",
+        "travel_time_sec": 5.0,
+        "distance_meters": null,
+        "status": "CONFIRMED",
+        "confidence": 0.99
+      }
+    ],
+    "distance_meters": null,
+    "duration_sec": 5.0,
+    "trajectory_confidence": 0.99
+  },
+  {
+    "vehicle_id": "V902",
+    "trajectory_status": "INVALID_TIME",
+    "start_time": "2026-08-27T10:00:00",
+    "end_time": "2026-08-27T15:00:00",
+    "camera_sequence": [
+      "C02",
+      "C03"
+    ],
+    "timestamps": [
+      "2026-08-27T10:00:00",
+      "2026-08-27T15:00:00"
+    ],
+    "observations": [
+      {
+        "camera_id": "C02",
+        "timestamp": "2026-08-27T10:00:00",
+        "status": "CONFIRMED",
+        "confidence": 0.99
+      },
+      {
+        "camera_id": "C03",
+        "timestamp": "2026-08-27T15:00:00",
+        "status": "CONFIRMED",
+        "confidence": 0.99
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C02",
+        "to_camera_id": "C03",
+        "travel_time_sec": 18000.0,
+        "distance_meters": 1246,
+        "status": "CONFIRMED",
+        "confidence": 0.99
+      }
+    ],
+    "distance_meters": 1246,
+    "duration_sec": 18000.0,
+    "trajectory_confidence": 0.99
+  },
+  {
+    "vehicle_id": "V903",
+    "trajectory_status": "UNREACHABLE",
+    "start_time": "2026-08-27T10:00:00",
+    "end_time": "2026-08-27T10:05:00",
+    "camera_sequence": [
+      "C10",
+      "C36"
+    ],
+    "timestamps": [
+      "2026-08-27T10:00:00",
+      "2026-08-27T10:05:00"
+    ],
+    "observations": [
+      {
+        "camera_id": "C10",
+        "timestamp": "2026-08-27T10:00:00",
+        "status": "CONFIRMED",
+        "confidence": 0.99
+      },
+      {
+        "camera_id": "C36",
+        "timestamp": "2026-08-27T10:05:00",
+        "status": "CONFIRMED",
+        "confidence": 0.99
+      }
+    ],
+    "transitions": [
+      {
+        "from_camera_id": "C10",
+        "to_camera_id": "C36",
+        "travel_time_sec": 300.0,
+        "distance_meters": null,
+        "status": "CONFIRMED",
+        "confidence": 0.99
+      }
+    ],
+    "distance_meters": null,
+    "duration_sec": 300.0,
+    "trajectory_confidence": 0.99
+  }
+]

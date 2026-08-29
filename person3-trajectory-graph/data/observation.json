@@ -1,0 +1,398 @@
+[
+  {
+    "vehicle_id": "V001",
+    "camera_id": "C29",
+    "timestamp": "2026-08-27T09:54:00",
+    "identity_confidence": 0.98
+  },
+  {
+    "vehicle_id": "V001",
+    "camera_id": "C30",
+    "timestamp": "2026-08-27T09:56:35",
+    "identity_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V002",
+    "camera_id": "C17",
+    "timestamp": "2026-08-27T09:02:00",
+    "identity_confidence": 0.86
+  },
+  {
+    "vehicle_id": "V002",
+    "camera_id": "C35",
+    "timestamp": "2026-08-27T09:09:09",
+    "identity_confidence": 0.86
+  },
+  {
+    "vehicle_id": "V003",
+    "camera_id": "C34",
+    "timestamp": "2026-08-27T09:17:00",
+    "identity_confidence": 0.94
+  },
+  {
+    "vehicle_id": "V003",
+    "camera_id": "C35",
+    "timestamp": "2026-08-27T09:19:14",
+    "identity_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V004",
+    "camera_id": "C32",
+    "timestamp": "2026-08-27T08:17:00",
+    "identity_confidence": 0.96
+  },
+  {
+    "vehicle_id": "V004",
+    "camera_id": "C34",
+    "timestamp": "2026-08-27T08:21:01",
+    "identity_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V005",
+    "camera_id": "C14",
+    "timestamp": "2026-08-27T08:16:00",
+    "identity_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V005",
+    "camera_id": "C28",
+    "timestamp": "2026-08-27T08:25:10",
+    "identity_confidence": 0.91
+  },
+  {
+    "vehicle_id": "V006",
+    "camera_id": "C09",
+    "timestamp": "2026-08-27T09:56:00",
+    "identity_confidence": 0.95
+  },
+  {
+    "vehicle_id": "V006",
+    "camera_id": "C34",
+    "timestamp": "2026-08-27T10:09:44",
+    "identity_confidence": 0.96
+  },
+  {
+    "vehicle_id": "V007",
+    "camera_id": "C16",
+    "timestamp": "2026-08-27T09:57:00",
+    "identity_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V007",
+    "camera_id": "C18",
+    "timestamp": "2026-08-27T10:02:13",
+    "identity_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V008",
+    "camera_id": "C31",
+    "timestamp": "2026-08-27T08:17:00",
+    "identity_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V008",
+    "camera_id": "C32",
+    "timestamp": "2026-08-27T08:19:53",
+    "identity_confidence": 0.97
+  },
+  {
+    "vehicle_id": "V009",
+    "camera_id": "C16",
+    "timestamp": "2026-08-27T09:01:00",
+    "identity_confidence": 0.97
+  },
+  {
+    "vehicle_id": "V009",
+    "camera_id": "C29",
+    "timestamp": "2026-08-27T09:08:44",
+    "identity_confidence": 0.98
+  },
+  {
+    "vehicle_id": "V010",
+    "camera_id": "C20",
+    "timestamp": "2026-08-27T08:11:00",
+    "identity_confidence": 0.94
+  },
+  {
+    "vehicle_id": "V010",
+    "camera_id": "C22",
+    "timestamp": "2026-08-27T08:14:45",
+    "identity_confidence": 0.95
+  },
+  {
+    "vehicle_id": "V011",
+    "camera_id": "C11",
+    "timestamp": "2026-08-27T09:28:00",
+    "identity_confidence": 0.86
+  },
+  {
+    "vehicle_id": "V011",
+    "camera_id": "C12",
+    "timestamp": "2026-08-27T09:30:11",
+    "identity_confidence": 0.95
+  },
+  {
+    "vehicle_id": "V012",
+    "camera_id": "C03",
+    "timestamp": "2026-08-27T08:58:00",
+    "identity_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V012",
+    "camera_id": "C28",
+    "timestamp": "2026-08-27T09:11:25",
+    "identity_confidence": 0.87
+  },
+  {
+    "vehicle_id": "V013",
+    "camera_id": "C33",
+    "timestamp": "2026-08-27T09:37:00",
+    "identity_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V013",
+    "camera_id": "C34",
+    "timestamp": "2026-08-27T09:39:10",
+    "identity_confidence": 0.9
+  },
+  {
+    "vehicle_id": "V014",
+    "camera_id": "C20",
+    "timestamp": "2026-08-27T09:17:00",
+    "identity_confidence": 0.95
+  },
+  {
+    "vehicle_id": "V014",
+    "camera_id": "C22",
+    "timestamp": "2026-08-27T09:20:50",
+    "identity_confidence": 0.96
+  },
+  {
+    "vehicle_id": "V015",
+    "camera_id": "C11",
+    "timestamp": "2026-08-27T09:10:00",
+    "identity_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V015",
+    "camera_id": "C12",
+    "timestamp": "2026-08-27T09:12:11",
+    "identity_confidence": 0.96
+  },
+  {
+    "vehicle_id": "V016",
+    "camera_id": "C04",
+    "timestamp": "2026-08-27T08:41:00",
+    "identity_confidence": 0.86
+  },
+  {
+    "vehicle_id": "V016",
+    "camera_id": "C12",
+    "timestamp": "2026-08-27T08:49:46",
+    "identity_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V017",
+    "camera_id": "C11",
+    "timestamp": "2026-08-27T08:24:00",
+    "identity_confidence": 0.96
+  },
+  {
+    "vehicle_id": "V017",
+    "camera_id": "C24",
+    "timestamp": "2026-08-27T08:31:19",
+    "identity_confidence": 0.97
+  },
+  {
+    "vehicle_id": "V018",
+    "camera_id": "C17",
+    "timestamp": "2026-08-27T09:58:00",
+    "identity_confidence": 0.94
+  },
+  {
+    "vehicle_id": "V018",
+    "camera_id": "C18",
+    "timestamp": "2026-08-27T10:00:36",
+    "identity_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V019",
+    "camera_id": "C14",
+    "timestamp": "2026-08-27T08:40:00",
+    "identity_confidence": 0.9
+  },
+  {
+    "vehicle_id": "V019",
+    "camera_id": "C20",
+    "timestamp": "2026-08-27T08:42:55",
+    "identity_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V020",
+    "camera_id": "C18",
+    "timestamp": "2026-08-27T08:24:00",
+    "identity_confidence": 0.89
+  },
+  {
+    "vehicle_id": "V020",
+    "camera_id": "C24",
+    "timestamp": "2026-08-27T08:25:59",
+    "identity_confidence": 0.85
+  },
+  {
+    "vehicle_id": "V021",
+    "camera_id": "C13",
+    "timestamp": "2026-08-27T08:14:00",
+    "identity_confidence": 0.98
+  },
+  {
+    "vehicle_id": "V021",
+    "camera_id": "C27",
+    "timestamp": "2026-08-27T08:23:08",
+    "identity_confidence": 0.86
+  },
+  {
+    "vehicle_id": "V022",
+    "camera_id": "C17",
+    "timestamp": "2026-08-27T09:00:00",
+    "identity_confidence": 0.94
+  },
+  {
+    "vehicle_id": "V022",
+    "camera_id": "C30",
+    "timestamp": "2026-08-27T09:05:06",
+    "identity_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V023",
+    "camera_id": "C09",
+    "timestamp": "2026-08-27T09:22:00",
+    "identity_confidence": 0.85
+  },
+  {
+    "vehicle_id": "V023",
+    "camera_id": "C30",
+    "timestamp": "2026-08-27T09:34:40",
+    "identity_confidence": 0.94
+  },
+  {
+    "vehicle_id": "V024",
+    "camera_id": "C10",
+    "timestamp": "2026-08-27T08:34:00",
+    "identity_confidence": 0.97
+  },
+  {
+    "vehicle_id": "V024",
+    "camera_id": "C18",
+    "timestamp": "2026-08-27T08:41:14",
+    "identity_confidence": 0.85
+  },
+  {
+    "vehicle_id": "V025",
+    "camera_id": "C24",
+    "timestamp": "2026-08-27T09:01:00",
+    "identity_confidence": 0.93
+  },
+  {
+    "vehicle_id": "V025",
+    "camera_id": "C30",
+    "timestamp": "2026-08-27T09:03:27",
+    "identity_confidence": 0.96
+  },
+  {
+    "vehicle_id": "V026",
+    "camera_id": "C08",
+    "timestamp": "2026-08-27T08:33:00",
+    "identity_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V026",
+    "camera_id": "C34",
+    "timestamp": "2026-08-27T08:45:41",
+    "identity_confidence": 0.94
+  },
+  {
+    "vehicle_id": "V027",
+    "camera_id": "C10",
+    "timestamp": "2026-08-27T09:57:00",
+    "identity_confidence": 0.87
+  },
+  {
+    "vehicle_id": "V027",
+    "camera_id": "C17",
+    "timestamp": "2026-08-27T10:01:21",
+    "identity_confidence": 0.95
+  },
+  {
+    "vehicle_id": "V028",
+    "camera_id": "C04",
+    "timestamp": "2026-08-27T09:55:00",
+    "identity_confidence": 0.91
+  },
+  {
+    "vehicle_id": "V028",
+    "camera_id": "C30",
+    "timestamp": "2026-08-27T10:10:31",
+    "identity_confidence": 0.96
+  },
+  {
+    "vehicle_id": "V029",
+    "camera_id": "C22",
+    "timestamp": "2026-08-27T09:35:00",
+    "identity_confidence": 0.88
+  },
+  {
+    "vehicle_id": "V029",
+    "camera_id": "C34",
+    "timestamp": "2026-08-27T09:40:35",
+    "identity_confidence": 0.92
+  },
+  {
+    "vehicle_id": "V030",
+    "camera_id": "C05",
+    "timestamp": "2026-08-27T09:02:00",
+    "identity_confidence": 0.94
+  },
+  {
+    "vehicle_id": "V030",
+    "camera_id": "C17",
+    "timestamp": "2026-08-27T09:07:33",
+    "identity_confidence": 0.85
+  },
+  {
+    "vehicle_id": "V901",
+    "camera_id": "C01",
+    "timestamp": "2026-08-27T10:00:00",
+    "identity_confidence": 0.99
+  },
+  {
+    "vehicle_id": "V901",
+    "camera_id": "C25",
+    "timestamp": "2026-08-27T10:00:05",
+    "identity_confidence": 0.99
+  },
+  {
+    "vehicle_id": "V902",
+    "camera_id": "C02",
+    "timestamp": "2026-08-27T10:00:00",
+    "identity_confidence": 0.99
+  },
+  {
+    "vehicle_id": "V902",
+    "camera_id": "C03",
+    "timestamp": "2026-08-27T15:00:00",
+    "identity_confidence": 0.99
+  },
+  {
+    "vehicle_id": "V903",
+    "camera_id": "C10",
+    "timestamp": "2026-08-27T10:00:00",
+    "identity_confidence": 0.99
+  },
+  {
+    "vehicle_id": "V903",
+    "camera_id": "C36",
+    "timestamp": "2026-08-27T10:05:00",
+    "identity_confidence": 0.99
+  }
+]
