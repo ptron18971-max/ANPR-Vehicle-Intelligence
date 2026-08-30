@@ -11,6 +11,21 @@ def test_predict_next_empty_at_leaf(graph):
     assert predict_next(graph, "C") == []
 
 
+def test_predict_next_handles_null_probability():
+    graph_with_null = {
+        "edges": [
+            {"from": "A", "to": "B", "distance_km": 1.0,
+             "expected_time_seconds_min": 10, "expected_time_seconds_max": 20,
+             "historical_probability": None},
+            {"from": "A", "to": "C", "distance_km": 1.0,
+             "expected_time_seconds_min": 10, "expected_time_seconds_max": 20,
+             "historical_probability": None},
+        ]
+    }
+    result = predict_next(graph_with_null, "A")
+    assert {camera for camera, _ in result} == {"B", "C"}
+
+
 def test_predict_path_beam_search(graph):
     paths = predict_path(graph, "A", hops=2, beam_width=2)
     assert paths[0][0] == ("A", "B", "C")

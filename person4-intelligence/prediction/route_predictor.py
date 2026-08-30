@@ -9,7 +9,7 @@ def predict_next(graph, current_camera, top_k=3):
     historical_probability.
     """
     edges = [e for e in graph["edges"] if e["from"] == current_camera]
-    ranked = sorted(edges, key=lambda e: e["historical_probability"], reverse=True)
+    ranked = sorted(edges, key=lambda e: e["historical_probability"] or 0, reverse=True)
     return [(e["to"], e["historical_probability"]) for e in ranked[:top_k]]
 
 

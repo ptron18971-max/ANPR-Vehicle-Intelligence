@@ -36,6 +36,24 @@ def test_route_anomaly_silent_on_common_edge(graph, normal_trajectory):
     assert check_route_anomaly(graph, normal_trajectory) == []
 
 
+def test_route_anomaly_silent_on_null_probability_edge(graph):
+    graph_with_null_edge = {
+        "edges": graph["edges"] + [
+            {"from": "A", "to": "C", "distance_km": 1.0,
+             "expected_time_seconds_min": 10, "expected_time_seconds_max": 20,
+             "historical_probability": None},
+        ]
+    }
+    trajectory = {
+        "vehicle_id": "VEH_TEST_5",
+        "trajectory": [
+            {"camera": "A", "time": "2026-08-26T10:00:00", "confidence": 0.9},
+            {"camera": "C", "time": "2026-08-26T10:00:15", "confidence": 0.9},
+        ],
+    }
+    assert check_route_anomaly(graph_with_null_edge, trajectory) == []
+
+
 def test_blacklist_check_matches(normal_trajectory):
     result = check_blacklist(normal_trajectory, {"VEH_TEST_1"})
     assert len(result) == 1

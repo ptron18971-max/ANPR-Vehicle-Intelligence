@@ -5,7 +5,10 @@ once it wires up the real service — for now it runs standalone against
 mock data.
 """
 import json
+import os
 
+from adapters.person3_contract import load_camera_graph as load_real_camera_graph
+from adapters.person3_contract import load_trajectories as load_real_trajectories
 from alerts.alert_builder import build_alerts
 from analytics.congestion import congested_camera_hours
 from analytics.od_matrix import most_common_routes, origin_destination_counts
@@ -58,8 +61,27 @@ def run_intelligence_pipeline(graph, trajectories, watchlist=()):
     }
 
 
+DEFAULT_CONTRACTS_DIR = os.path.join(os.path.dirname(__file__), "..", "docs", "contracts")
+
+
+def run_against_real_data(contracts_dir=DEFAULT_CONTRACTS_DIR, watchlist=()):
+    """Run the pipeline against Person 3's real contract files instead of
+    mock_data. Trajectories Person 3 marked UNREACHABLE/INVALID_TIME are
+    dropped by the adapter before they reach prediction/analytics.
+    """
+    graph = load_real_camera_graph(os.path.join(contracts_dir, "camera_graph.json"))
+    trajectories = load_real_trajectories(os.path.join(contracts_dir, "person3_to_person4.json"))
+    return run_intelligence_pipeline(graph, trajectories, watchlist=watchlist)
+
+
 if __name__ == "__main__":
-    camera_graph = load_camera_graph()
-    batch = generate_batch(n=30, anomaly_rate=0.3)
-    result = run_intelligence_pipeline(camera_graph, batch, watchlist={"VEH_1005"})
+    import sys
+
+    if "--source" in sys.argv and sys.argv[sys.argv.index("--source") + 1] == "real":
+        result = run_against_real_data(watchlist={"VEH_1005"})
+    else:
+        camera_graph = load_camera_graph()
+        batch = generate_batch(n=30, anomaly_rate=0.3)
+        result = run_intelligence_pipeline(camera_graph, batch, watchlist={"VEH_1005"})
+
     print(json.dumps(result, indent=2, default=str))

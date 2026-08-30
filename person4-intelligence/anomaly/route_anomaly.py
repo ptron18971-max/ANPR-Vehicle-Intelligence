@@ -28,7 +28,7 @@ def check_trajectory(graph, trajectory_record, rare_threshold=RARE_EDGE_PROBABIL
                 "to_camera": b["camera"],
                 "reason": f"No known route from {a['camera']} to {b['camera']} — unexpected camera jump",
             })
-        elif edge["historical_probability"] < rare_threshold:
+        elif edge["historical_probability"] is not None and edge["historical_probability"] < rare_threshold:
             anomalies.append({
                 "vehicle_id": trajectory_record["vehicle_id"],
                 "from_camera": a["camera"],
