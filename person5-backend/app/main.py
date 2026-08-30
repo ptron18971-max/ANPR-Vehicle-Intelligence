@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from pydantic import BaseModel
@@ -20,6 +20,25 @@ class ObservationIn(BaseModel):
     vehicle_color: Optional[str] = None
     vehicle_crop_ref: Optional[str] = None
     bbox: Optional[List[int]] = None
+
+
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def broadcast(self, message: dict):
+        for connection in self.active_connections:
+            await connection.send_json(message)
+
+
+manager = ConnectionManager()
 
 
 @app.get("/health")
@@ -45,7 +64,7 @@ def get_vehicles(db: Session = Depends(get_db)):
 
 
 @app.post("/observations")
-def create_observation(observation: ObservationIn, db: Session = Depends(get_db)):
+async def create_observation(observation: ObservationIn, db: Session = Depends(get_db)):
     result = db.execute(
         text("""
             INSERT INTO observation (
@@ -74,4 +93,25 @@ def create_observation(observation: ObservationIn, db: Session = Depends(get_db)
     )
     db.commit()
     new_id = result.scalar()
+
+    await manager.broadcast({
+        "event": "new_observation",
+        "observation_id": str(new_id),
+        "camera_id": observation.camera_id,
+        "timestamp": observation.timestamp.isoformat(),
+        "plate_text": observation.plate_text,
+        "vehicle_type": observation.vehicle_type,
+        "vehicle_color": observation.vehicle_color,
+    })
+
     return {"observation_id": str(new_id), "status": "created"}
+
+
+@app.websocket("/ws/live")
+async def websocket_live_feed(websocket: WebSocket):
+    await manager.connect(websocket)
+    try:
+        while True:
+            await websocket.receive_text()
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
