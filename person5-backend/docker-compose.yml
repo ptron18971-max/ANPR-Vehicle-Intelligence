@@ -20,5 +20,17 @@ services:
     ports:
       - "6379:6379"
 
+  backend:
+    build: .
+    container_name: vehicle_platform_backend
+    restart: unless-stopped
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/vehicle_platform
+    ports:
+      - "8000:8000"
+
 volumes:
   pgdata:
