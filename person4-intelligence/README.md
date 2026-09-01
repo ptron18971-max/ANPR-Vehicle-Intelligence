@@ -182,7 +182,7 @@ Converts anomaly dicts from the three detectors above into the
 ```json
 {
   "vehicle_id": "VEH_8421",
-  "alert_type": "TRAJECTORY_ANOMALY | ROUTE_ANOMALY | BLACKLIST_MATCH",
+  "event_type": "TRAJECTORY_ANOMALY | ROUTE_ANOMALY | BLACKLIST_MATCH",
   "severity": "LOW | MEDIUM | HIGH",
   "confidence": 0.0-1.0,
   "reason": "human-readable string"

@@ -1,6 +1,6 @@
 {
   "vehicle_id": "VEH_8421",
-  "alert_type": "TRAJECTORY_ANOMALY",
+  "event_type": "TRAJECTORY_ANOMALY",
   "severity": "MEDIUM",
   "confidence": 0.87,
   "reason": "Travel time 3.1x historical average"

@@ -35,7 +35,7 @@ def run():
         route_anomalies = check_route_anomaly(graph, record)
         alerts = build_alerts(tt_anomalies, route_anomalies)
         for alert in alerts:
-            assert {"vehicle_id", "alert_type", "severity", "confidence", "reason"} <= alert.keys()
+            assert {"vehicle_id", "event_type", "severity", "confidence", "reason"} <= alert.keys()
         total_alerts += len(alerts)
 
     print(f"Total alerts generated: {total_alerts}")

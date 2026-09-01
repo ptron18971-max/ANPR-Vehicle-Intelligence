@@ -18,8 +18,8 @@ def test_pipeline_flags_slow_vehicle_alert(graph, normal_trajectory, slow_trajec
 
 def test_pipeline_applies_watchlist(graph, normal_trajectory):
     result = run_intelligence_pipeline(graph, [normal_trajectory], watchlist={"VEH_TEST_1"})
-    alert_types = {a["alert_type"] for a in result["alerts"]}
-    assert "BLACKLIST_MATCH" in alert_types
+    event_types = {a["event_type"] for a in result["alerts"]}
+    assert "BLACKLIST_MATCH" in event_types
 
 
 def test_alert_contract_shape(graph, slow_trajectory):
@@ -27,4 +27,4 @@ def test_alert_contract_shape(graph, slow_trajectory):
     anomalies = check_tt(graph, slow_trajectory)
     alerts = build_alerts(anomalies, [], [])
     for alert in alerts:
-        assert {"vehicle_id", "alert_type", "severity", "confidence", "reason"} <= alert.keys()
+        assert {"vehicle_id", "event_type", "severity", "confidence", "reason"} <= alert.keys()

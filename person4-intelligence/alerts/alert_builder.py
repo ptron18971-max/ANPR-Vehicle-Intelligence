@@ -15,7 +15,7 @@ def build_travel_time_alert(anomaly):
     """anomaly: one item from anomaly.travel_time_anomaly.check_trajectory()."""
     return {
         "vehicle_id": anomaly["vehicle_id"],
-        "alert_type": "TRAJECTORY_ANOMALY",
+        "event_type": "TRAJECTORY_ANOMALY",
         "severity": _severity_for_travel_time(anomaly["deviation_pct"]),
         "confidence": min(0.99, 0.5 + anomaly["deviation_pct"] / 400),
         "reason": anomaly["reason"],
@@ -26,7 +26,7 @@ def build_route_alert(anomaly):
     """anomaly: one item from anomaly.route_anomaly.check_trajectory()."""
     return {
         "vehicle_id": anomaly["vehicle_id"],
-        "alert_type": "ROUTE_ANOMALY",
+        "event_type": "ROUTE_ANOMALY",
         "severity": "MEDIUM",
         "confidence": 0.75,
         "reason": anomaly["reason"],
@@ -37,7 +37,7 @@ def build_blacklist_alert(anomaly):
     """anomaly: one item from anomaly.blacklist_check.check_trajectory()."""
     return {
         "vehicle_id": anomaly["vehicle_id"],
-        "alert_type": "BLACKLIST_MATCH",
+        "event_type": "BLACKLIST_MATCH",
         "severity": "HIGH",
         "confidence": 1.0,
         "reason": anomaly["reason"],
