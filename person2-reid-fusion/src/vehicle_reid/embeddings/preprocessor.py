@@ -80,7 +80,7 @@ class VehicleImagePreprocessor:
             if image_input.ndim == 3 and image_input.shape[2] == 3:
                 # Check if values are in 0-255 float/int
                 if image_input.dtype == np.uint8:
-                    return Image.fromarray(image_input[:, :, ::-1], mode="RGB")
+                    return Image.fromarray(image_input[:, :, ::-1])
                 else:
                     arr = np.clip(image_input * 255 if image_input.max() <= 1.0 else image_input, 0, 255).astype(np.uint8)
                     return Image.fromarray(arr[:, :, ::-1], mode="RGB")

@@ -1,0 +1,3 @@
+{
+  "python.analysis.extraPaths": ["./person2-reid-fusion/src"]
+}
