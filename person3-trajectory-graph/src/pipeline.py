@@ -3,6 +3,7 @@ from datetime import datetime
 from collections import defaultdict
 from trajectory import reconstruct_trajectory
 from graph import G
+from routing import get_road_route
 
 
 def process_vehicle(v_id, observations, graph):
@@ -100,6 +101,20 @@ def process_vehicle(v_id, observations, graph):
 
     duration = (end_time - start_time).total_seconds()
     
+    route_geometry = []
+    if trajectory_status in ["VALID", "RECOVERED"]:
+        for i in range(len(traj_steps) - 1):
+            u = traj_steps[i]["camera_id"]
+            v = traj_steps[i+1]["camera_id"]
+            route = get_road_route(u, v)
+            if route and 'geometry' in route:
+                route_geometry.append({
+                    "from_camera_id": u,
+                    "to_camera_id": v,
+                    "distance_meters": route.get("routing_distance_meters"),
+                    "points": route["geometry"]
+                })
+    
     return {
         "vehicle_id": v_id,
         "trajectory_status": trajectory_status,
@@ -109,6 +124,7 @@ def process_vehicle(v_id, observations, graph):
         "timestamps": timestamps,
         "observations": out_observations,
         "transitions": out_transitions,
+        "route_geometry": route_geometry,
         "distance_meters": total_distance if has_full_distance and out_transitions else None,
         "duration_sec": duration,
         "trajectory_confidence": round(min_confidence, 2)
