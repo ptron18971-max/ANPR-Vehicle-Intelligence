@@ -33,7 +33,6 @@ CREATE TABLE observation (
 );
 
 -- Vehicle Identity Links (Person 2 to Person 3)
--- Note: camera_id, timestamp, plate_text removed — derivable via observation_id join (see note below)
 CREATE TABLE vehicle_identity_links (
     id                       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     vehicle_id               VARCHAR REFERENCES vehicles(vehicle_id),
@@ -48,6 +47,7 @@ CREATE TABLE vehicle_identity_links (
 CREATE TABLE trajectory (
     trajectory_id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     vehicle_id             VARCHAR REFERENCES vehicles(vehicle_id),
+    trajectory_status        VARCHAR CHECK (trajectory_status IN ('VALID', 'RECOVERED', 'INVALID_TIME', 'UNREACHABLE')),
     start_time              TIMESTAMPTZ,
     end_time                 TIMESTAMPTZ,
     distance_meters           FLOAT,
@@ -60,7 +60,7 @@ CREATE TABLE trajectory_observation (
     trajectory_observation_id   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     trajectory_id                 UUID REFERENCES trajectory(trajectory_id),
     camera_id                      VARCHAR REFERENCES camera(camera_id),
-    timestamp                       TIMESTAMPTZ,  -- nullable: inferred points may have no observed timestamp
+    timestamp                       TIMESTAMPTZ,
     sequence_number                  INTEGER,
     status                             VARCHAR CHECK (status IN ('CONFIRMED', 'INFERRED')),
     confidence                         FLOAT CHECK (confidence BETWEEN 0 AND 1),
@@ -80,6 +80,15 @@ CREATE TABLE trajectory_transition (
     distance_meters                 FLOAT,
     confidence                       FLOAT CHECK (confidence BETWEEN 0 AND 1),
     status                             VARCHAR CHECK (status IN ('CONFIRMED', 'INFERRED'))
+);
+
+-- Trajectory Route Geometry (Person 3) — actual road polyline points per transition
+CREATE TABLE trajectory_route_geometry (
+    id                     UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    transition_id           UUID REFERENCES trajectory_transition(transition_id),
+    sequence_number           INTEGER,
+    latitude                   FLOAT,
+    longitude                   FLOAT
 );
 
 -- Intelligence Events / Alerts (Person 4 to Person 5)
