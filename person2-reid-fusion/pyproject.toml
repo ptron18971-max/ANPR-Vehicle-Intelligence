@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vehicle-reid-fusion"
+version = "0.1.0"
+description = "Vehicle Re-Identification and Multi-Modal Identity Fusion Engine for City-Wide ANPR"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "timm>=0.9.0",
+    "opencv-python-headless>=4.8.0",
+    "pillow>=10.0.0",
+    "numpy>=1.24.0",
+    "scipy>=1.11.0",
+    "scikit-learn>=1.3.0",
+    "faiss-cpu>=1.7.4",
+    "pydantic>=2.5.0",
+    "rapidfuzz>=3.5.0",
+    "rich>=13.7.0",
+    "tqdm>=4.66.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "matplotlib>=3.8.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
