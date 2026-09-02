@@ -1,12 +1,23 @@
-from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
+import json
 from app.database import get_db
 
 app = FastAPI(title="Vehicle Intelligence Platform - Backend")
+
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # ---------- Request Models ----------
@@ -24,20 +35,32 @@ class ObservationIn(BaseModel):
     bbox: Optional[List[int]] = None
 
 
+class SupportingEvidence(BaseModel):
+    appearance_similarity: Optional[float] = None
+    plate_match_score: Optional[float] = None
+    attribute_match_score: Optional[float] = None
+    matched_against_id: Optional[str] = None
+    match_strategy: Optional[str] = None
+
+
 class IdentityIn(BaseModel):
+    """Matches Person 2's actual CanonicalVehicleIdentity output.
+    No observation_id is sent — we look it up via camera_id + timestamp + plate_text."""
     vehicle_id: str
-    observation_id: str
-    embedding_ref: Optional[str] = None
+    camera_id: str
+    timestamp: datetime
+    plate_text: Optional[str] = None
     identity_confidence: Optional[float] = None
     appearance_confidence: Optional[float] = None
     supporting_evidence: Optional[dict] = None
 
 
 class TrajectoryObservationIn(BaseModel):
+    """Matches Person 3's flat observation shape. sequence_number is
+    derived server-side from array order, not sent by Person 3."""
     camera_id: str
     timestamp: Optional[datetime] = None
-    sequence_number: int
-    status: str  
+    status: str  # CONFIRMED / INFERRED
     confidence: Optional[float] = None
     source_observation_id: Optional[str] = None
 
@@ -47,21 +70,36 @@ class TrajectoryTransitionIn(BaseModel):
     to_camera_id: str
     from_timestamp: Optional[datetime] = None
     to_timestamp: Optional[datetime] = None
-    travel_time_sec: Optional[int] = None
+    travel_time_sec: Optional[float] = None
     distance_meters: Optional[float] = None
     confidence: Optional[float] = None
-    status: str  
+    status: str  # CONFIRMED / INFERRED
+
+
+class RoutePoint(BaseModel):
+    lat: float
+    lon: float
+
+
+class RouteGeometrySegment(BaseModel):
+    from_camera_id: str
+    to_camera_id: str
+    distance_meters: Optional[float] = None
+    points: List[RoutePoint]
 
 
 class TrajectoryIn(BaseModel):
+    """Matches Person 3's real person3_to_person4.json contract."""
     vehicle_id: str
+    trajectory_status: Optional[str] = None  # VALID / RECOVERED / INVALID_TIME / UNREACHABLE
     start_time: Optional[datetime] = None
     end_time: Optional[datetime] = None
     distance_meters: Optional[float] = None
-    duration_sec: Optional[int] = None
+    duration_sec: Optional[float] = None
     trajectory_confidence: Optional[float] = None
     observations: List[TrajectoryObservationIn]
     transitions: List[TrajectoryTransitionIn]
+    route_geometry: Optional[List[RouteGeometrySegment]] = None
 
 
 class EventIn(BaseModel):
@@ -176,22 +214,45 @@ async def create_observation(observation: ObservationIn, db: Session = Depends(g
 
 @app.post("/identities")
 def create_identity(identity: IdentityIn, db: Session = Depends(get_db)):
-    import json
+    # Person 2 doesn't send our internal observation_id — look it up
+    # via the fields they do send (camera_id + timestamp + plate_text).
+    match = db.execute(
+        text("""
+            SELECT observation_id FROM observation
+            WHERE camera_id = :camera_id
+              AND timestamp = :timestamp
+              AND (plate_text = :plate_text OR (:plate_text IS NULL AND plate_text IS NULL))
+            ORDER BY timestamp DESC
+            LIMIT 1
+        """),
+        {
+            "camera_id": identity.camera_id,
+            "timestamp": identity.timestamp,
+            "plate_text": identity.plate_text,
+        }
+    ).scalar()
+
+    if match is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No matching observation found for camera_id={identity.camera_id}, "
+                   f"timestamp={identity.timestamp}, plate_text={identity.plate_text}"
+        )
+
     result = db.execute(
         text("""
             INSERT INTO vehicle_identity_links (
-                vehicle_id, observation_id, embedding_ref,
-                identity_confidence, appearance_confidence, supporting_evidence
+                vehicle_id, observation_id, identity_confidence,
+                appearance_confidence, supporting_evidence
             ) VALUES (
-                :vehicle_id, :observation_id, :embedding_ref,
-                :identity_confidence, :appearance_confidence, :supporting_evidence
+                :vehicle_id, :observation_id, :identity_confidence,
+                :appearance_confidence, :supporting_evidence
             )
             RETURNING id
         """),
         {
             "vehicle_id": identity.vehicle_id,
-            "observation_id": identity.observation_id,
-            "embedding_ref": identity.embedding_ref,
+            "observation_id": match,
             "identity_confidence": identity.identity_confidence,
             "appearance_confidence": identity.appearance_confidence,
             "supporting_evidence": json.dumps(identity.supporting_evidence) if identity.supporting_evidence else None,
@@ -199,7 +260,7 @@ def create_identity(identity: IdentityIn, db: Session = Depends(get_db)):
     )
     db.commit()
     new_id = result.scalar()
-    return {"id": str(new_id), "status": "created"}
+    return {"id": str(new_id), "observation_id": str(match), "status": "created"}
 
 
 # ---------- Trajectories (Person 3 -> Person 4 / Person 5) ----------
@@ -211,16 +272,17 @@ def create_trajectory(trajectory: TrajectoryIn, db: Session = Depends(get_db)):
     result = db.execute(
         text("""
             INSERT INTO trajectory (
-                vehicle_id, start_time, end_time, distance_meters,
-                duration, trajectory_confidence
+                vehicle_id, trajectory_status, start_time, end_time,
+                distance_meters, duration, trajectory_confidence
             ) VALUES (
-                :vehicle_id, :start_time, :end_time, :distance_meters,
-                :duration, :trajectory_confidence
+                :vehicle_id, :trajectory_status, :start_time, :end_time,
+                :distance_meters, :duration, :trajectory_confidence
             )
             RETURNING trajectory_id
         """),
         {
             "vehicle_id": trajectory.vehicle_id,
+            "trajectory_status": trajectory.trajectory_status,
             "start_time": trajectory.start_time,
             "end_time": trajectory.end_time,
             "distance_meters": trajectory.distance_meters,
@@ -230,7 +292,8 @@ def create_trajectory(trajectory: TrajectoryIn, db: Session = Depends(get_db)):
     )
     trajectory_id = result.scalar()
 
-    for obs in trajectory.observations:
+    # sequence_number derived from array order — Person 3 doesn't send it
+    for i, obs in enumerate(trajectory.observations):
         db.execute(
             text("""
                 INSERT INTO trajectory_observation (
@@ -241,11 +304,16 @@ def create_trajectory(trajectory: TrajectoryIn, db: Session = Depends(get_db)):
                     :status, :confidence, :source_observation_id
                 )
             """),
-            {"trajectory_id": trajectory_id, **obs.model_dump()}
+            {
+                "trajectory_id": trajectory_id,
+                "sequence_number": i + 1,
+                **obs.model_dump(),
+            }
         )
 
+    transition_id_map = {}
     for trans in trajectory.transitions:
-        db.execute(
+        result_t = db.execute(
             text("""
                 INSERT INTO trajectory_transition (
                     trajectory_id, from_camera_id, to_camera_id,
@@ -256,9 +324,32 @@ def create_trajectory(trajectory: TrajectoryIn, db: Session = Depends(get_db)):
                     :from_timestamp, :to_timestamp, :travel_time_sec,
                     :distance_meters, :confidence, :status
                 )
+                RETURNING transition_id
             """),
             {"trajectory_id": trajectory_id, **trans.model_dump()}
         )
+        transition_id_map[(trans.from_camera_id, trans.to_camera_id)] = result_t.scalar()
+
+    # Store route geometry polyline points, linked to their transition
+    if trajectory.route_geometry:
+        for segment in trajectory.route_geometry:
+            transition_id = transition_id_map.get((segment.from_camera_id, segment.to_camera_id))
+            for i, point in enumerate(segment.points):
+                db.execute(
+                    text("""
+                        INSERT INTO trajectory_route_geometry (
+                            transition_id, sequence_number, latitude, longitude
+                        ) VALUES (
+                            :transition_id, :sequence_number, :latitude, :longitude
+                        )
+                    """),
+                    {
+                        "transition_id": transition_id,
+                        "sequence_number": i + 1,
+                        "latitude": point.lat,
+                        "longitude": point.lon,
+                    }
+                )
 
     db.commit()
     return {"trajectory_id": str(trajectory_id), "status": "created"}
@@ -268,7 +359,7 @@ def create_trajectory(trajectory: TrajectoryIn, db: Session = Depends(get_db)):
 def get_trajectories(vehicle_id: str, db: Session = Depends(get_db)):
     trajectories = db.execute(
         text("""
-            SELECT trajectory_id, vehicle_id, start_time, end_time,
+            SELECT trajectory_id, vehicle_id, trajectory_status, start_time, end_time,
                    distance_meters, duration, trajectory_confidence
             FROM trajectory
             WHERE vehicle_id = :vehicle_id
@@ -306,8 +397,24 @@ def get_trajectories(vehicle_id: str, db: Session = Depends(get_db)):
             {"trajectory_id": traj["trajectory_id"]}
         ).mappings().all()
 
+        transitions_out = []
+        for t in transitions:
+            t_dict = dict(t)
+            geometry = db.execute(
+                text("""
+                    SELECT latitude, longitude
+                    FROM trajectory_route_geometry
+                    WHERE transition_id = :transition_id
+                    ORDER BY sequence_number
+                """),
+                {"transition_id": t["transition_id"]}
+            ).mappings().all()
+            t_dict["route_geometry"] = [dict(g) for g in geometry]
+            t_dict["transition_id"] = str(t_dict["transition_id"])
+            transitions_out.append(t_dict)
+
         traj_dict["observations"] = [dict(o) for o in observations]
-        traj_dict["transitions"] = [dict(t) for t in transitions]
+        traj_dict["transitions"] = transitions_out
         output.append(traj_dict)
 
     return output
