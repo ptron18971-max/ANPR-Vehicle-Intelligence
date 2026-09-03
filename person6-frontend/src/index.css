@@ -1,0 +1,240 @@
+@import 'tailwindcss';
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+@theme {
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Harbor palette — #011329 / #00415B / #F38D31 / #F36E25 / #D65118,
+     as given. #011329 is already near-black, so it's the base outright. */
+  --color-ink: #011329;
+  --color-ink-raised: #041b33;
+  --color-panel: #041b33;
+  --color-panel-hover: #0a2740;
+  --color-steel: #0d3d55;
+  --color-steel-soft: #062339;
+  --color-fg: #eef3f6;
+  --color-fg-muted: #9fb3c2;
+  /* 5.11:1 against --color-ink — clears WCAG AA for text. fg-faint carries
+     real data (timestamps, endpoint labels), not just decoration. */
+  --color-fg-faint: #6d8a9a;
+
+  /* #F38D31 is the one vibrant accent — live/active state, primary actions,
+     the data points operators must see first. Everything else stays in the
+     muted steel/fg or the given severity oranges so the accent keeps its
+     punch instead of competing with itself. */
+  --color-accent: #f38d31;
+  --color-accent-soft: #6b3d13;
+  /* A teal pulled from the base itself — the only cool note in an
+     otherwise warm-on-navy system, reserved for "confirmed/verified"
+     state (route hops, camera online) so it never competes with accent. */
+  --color-signal-cyan: #3f7f9c;
+  --color-signal-cyan-dim: #1f4257;
+  --color-active: #3f7f9c;
+  --color-offline: #4a5a6b;
+  --color-severity-low: #facc15;
+  --color-severity-medium: #f36e25;
+  --color-severity-high: #d65118;
+  /* Distinct from --color-accent on purpose (transient/caution state —
+     connecting, inferred hop — must read differently from "live and
+     primary" at a glance; the given oranges are all too close to accent
+     for that job). */
+  --color-amber: #e8b83f;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(ellipse 120% 80% at 50% -10%, #26190f 0%, var(--color-ink) 55%);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-steel) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-steel);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Floating glass panel — the base "premium" surface used by every chrome
+   panel (top bar, side panels, drawer, legend) so they read as cards
+   hovering above the map rather than flat docked rectangles. Tinted toward
+   the accent so the frost reads as part of the same signal system instead
+   of a generic neutral blur. */
+.glass-panel {
+  background: linear-gradient(180deg, rgba(4, 27, 51, 0.86) 0%, rgba(1, 19, 41, 0.86) 100%);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(160, 210, 235, 0.07);
+  box-shadow:
+    0 12px 36px -8px rgba(0, 0, 0, 0.65),
+    0 1px 0 0 rgba(160, 210, 235, 0.05) inset;
+}
+
+/* Small uppercase label with a hairline rule filling the rest of the row —
+   used to separate sub-sections within a panel (search → results, chart →
+   timeline, legend groups) instead of a bare, unlabeled border. */
+.divider-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-fg-faint);
+  white-space: nowrap;
+}
+.divider-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-steel-soft);
+}
+
+@keyframes feed-item-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+    background-color: rgba(243, 141, 49, 0.16);
+    box-shadow: 0 0 0 1px rgba(243, 141, 49, 0.4);
+  }
+  60% {
+    box-shadow: 0 0 0 1px rgba(243, 141, 49, 0.15);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    background-color: transparent;
+    box-shadow: 0 0 0 1px transparent;
+  }
+}
+.animate-feed-in {
+  animation: feed-item-in 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(63, 127, 156, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(63, 127, 156, 0);
+  }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-out infinite;
+}
+
+/* Bigger, brighter ambient pulse for the primary "LIVE" indicator —
+   distinct from the generic status dot above so the connection to the
+   live feed reads as the centerpiece it is. */
+@keyframes pulse-live {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(243, 141, 49, 0.5),
+      0 0 8px 1px rgba(243, 141, 49, 0.8);
+  }
+  70% {
+    box-shadow:
+      0 0 0 8px rgba(243, 141, 49, 0),
+      0 0 8px 1px rgba(243, 141, 49, 0.8);
+  }
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(243, 141, 49, 0),
+      0 0 8px 1px rgba(243, 141, 49, 0.8);
+  }
+}
+.animate-pulse-live {
+  animation: pulse-live 1.8s ease-out infinite;
+}
+
+@keyframes drawer-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-drawer-up {
+  animation: drawer-up 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-panel-in {
+  animation: panel-in 220ms ease-out;
+}
+
+@keyframes glow-pulse-ring {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+.animate-glow-ring {
+  animation: glow-pulse-ring 2.4s ease-in-out infinite;
+}
+
+.maplibregl-popup-content {
+  background: var(--color-panel) !important;
+  color: var(--color-fg) !important;
+  border: 1px solid var(--color-steel) !important;
+  border-radius: 8px !important;
+  font-family: var(--font-sans) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}
+.maplibregl-popup-tip {
+  border-top-color: var(--color-panel) !important;
+  border-bottom-color: var(--color-panel) !important;
+}
+.maplibregl-ctrl-attrib {
+  background: rgba(2, 12, 26, 0.6) !important;
+}
+.maplibregl-ctrl-attrib,
+.maplibregl-ctrl-attrib-inner {
+  color: var(--color-fg-muted) !important;
+}
+.maplibregl-ctrl-attrib a {
+  color: var(--color-fg-muted) !important;
+}
