@@ -1,3 +1,10 @@
 {
-  "python.analysis.extraPaths": ["./person2-reid-fusion/src"]
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/person2-reid-fusion/src",
+    "${workspaceFolder}/person2-reid-fusion"
+  ],
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}/person2-reid-fusion/src",
+    "${workspaceFolder}/person2-reid-fusion"
+  ]
 }

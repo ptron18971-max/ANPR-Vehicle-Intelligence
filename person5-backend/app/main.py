@@ -1,8 +1,8 @@
-from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect, HTTPException
+﻿from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from pydantic import BaseModel
-from typing import Optional, List
+from pydantic import BaseModel, Field
+from typing import Optional, List, Dict, Any
 from datetime import datetime
 import json
 from app.database import get_db
@@ -111,6 +111,12 @@ class EventIn(BaseModel):
     camera_range: Optional[List[str]] = None
     time_range_start: Optional[datetime] = None
     time_range_end: Optional[datetime] = None
+
+
+class IntelligencePayloadIn(BaseModel):
+    alerts: List[EventIn] = Field(default_factory=list)
+    predictions: Dict[str, Any] = Field(default_factory=dict)
+    analytics: Dict[str, Any] = Field(default_factory=dict)
 
 
 # ---------- WebSocket Connection Manager ----------
@@ -398,23 +404,33 @@ def get_trajectories(vehicle_id: str, db: Session = Depends(get_db)):
         ).mappings().all()
 
         transitions_out = []
+        route_geometry_out = []
         for t in transitions:
             t_dict = dict(t)
             geometry = db.execute(
                 text("""
-                    SELECT latitude, longitude
+                    SELECT latitude as lat, longitude as lon
                     FROM trajectory_route_geometry
                     WHERE transition_id = :transition_id
                     ORDER BY sequence_number
                 """),
                 {"transition_id": t["transition_id"]}
             ).mappings().all()
-            t_dict["route_geometry"] = [dict(g) for g in geometry]
+
+            # Reconstruct the top-level route_geometry segment for this transition
+            if geometry:
+                route_geometry_out.append({
+                    "from_camera_id": t["from_camera_id"],
+                    "to_camera_id": t["to_camera_id"],
+                    "points": [dict(g) for g in geometry]
+                })
+
             t_dict["transition_id"] = str(t_dict["transition_id"])
             transitions_out.append(t_dict)
 
         traj_dict["observations"] = [dict(o) for o in observations]
         traj_dict["transitions"] = transitions_out
+        traj_dict["route_geometry"] = route_geometry_out
         output.append(traj_dict)
 
     return output
@@ -464,3 +480,73 @@ async def websocket_live_feed(websocket: WebSocket):
             await websocket.receive_text()
     except WebSocketDisconnect:
         manager.disconnect(websocket)
+
+
+# ---------- Intelligence (Person 4 -> Person 5): alerts + predictions + analytics ----------
+
+@app.post("/intelligence")
+def ingest_intelligence(payload: IntelligencePayloadIn, db: Session = Depends(get_db)):
+    # 1. Ingest Alerts
+    for alert in payload.alerts:
+        db.execute(
+            text("""
+                INSERT INTO intelligence_events (
+                    vehicle_id, event_type, severity, confidence, reason,
+                    camera_range, time_range_start, time_range_end
+                ) VALUES (
+                    :vehicle_id, :event_type, :severity, :confidence, :reason,
+                    :camera_range, :time_range_start, :time_range_end
+                )
+            """),
+            alert.model_dump()
+        )
+
+    # 2. Ingest Predictions
+    for vehicle_id, preds in payload.predictions.items():
+        db.execute(
+            text("""
+                INSERT INTO vehicle_predictions (vehicle_id, predictions)
+                VALUES (:vehicle_id, :predictions)
+                ON CONFLICT (vehicle_id) DO UPDATE
+                SET predictions = EXCLUDED.predictions, updated_at = now()
+            """),
+            {"vehicle_id": vehicle_id, "predictions": json.dumps(preds)}
+        )
+
+    # 3. Ingest Analytics
+    if payload.analytics:
+        db.execute(
+            text("""
+                INSERT INTO system_analytics (data)
+                VALUES (:data)
+            """),
+            {"data": json.dumps(payload.analytics)}
+        )
+
+    db.commit()
+    return {
+        "status": "success",
+        "alerts_processed": len(payload.alerts),
+        "predictions_processed": len(payload.predictions),
+    }
+
+
+@app.get("/intelligence/predictions/{vehicle_id}")
+def get_predictions(vehicle_id: str, db: Session = Depends(get_db)):
+    result = db.execute(
+        text("SELECT predictions, updated_at FROM vehicle_predictions WHERE vehicle_id = :vehicle_id"),
+        {"vehicle_id": vehicle_id}
+    ).mappings().first()
+    if not result:
+        raise HTTPException(status_code=404, detail="No predictions found for this vehicle")
+    return {"vehicle_id": vehicle_id, "predictions": result["predictions"], "updated_at": result["updated_at"]}
+
+
+@app.get("/intelligence/analytics/latest")
+def get_latest_analytics(db: Session = Depends(get_db)):
+    result = db.execute(
+        text("SELECT data, created_at FROM system_analytics ORDER BY created_at DESC LIMIT 1")
+    ).mappings().first()
+    if not result:
+        return {"data": {}, "message": "No analytics available yet"}
+    return {"data": result["data"], "created_at": result["created_at"]}

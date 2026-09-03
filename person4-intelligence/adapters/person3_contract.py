@@ -45,6 +45,7 @@ def load_trajectories(path):
                 {"camera": obs["camera_id"], "time": obs["timestamp"], "confidence": obs["confidence"]}
                 for obs in record["observations"]
             ],
+            "route_geometry": record.get("route_geometry", []),
             "total_distance_km": distance_meters / 1000 if distance_meters is not None else None,
             "duration_seconds": record["duration_sec"],
         })

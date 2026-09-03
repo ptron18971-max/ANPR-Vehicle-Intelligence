@@ -3,6 +3,7 @@
 import os
 import cv2
 import time
+from datetime import datetime, timedelta
 import json
 import torch
 import numpy as np
@@ -216,17 +217,16 @@ class VehicleTracker:
     def is_vehicle(self, class_name):
         """Check if class is a vehicle"""
         return class_name.lower() in self.vehicle_classes
-    
-    def process(self, video_path):
-        """Process video and generate observations"""
-        
-        start_time = time.time()
-        observations = []
+    def process(self, video_path, video_start_time="2026-08-27T01:30:00Z"):
+        """Process video and track vehicles"""
+        print(f"Loading video: {video_path}")
         
         # Open video
         cap = cv2.VideoCapture(video_path)
         if not cap.isOpened():
-            raise RuntimeError(f"Could not open video: {video_path}")
+            raise ValueError(f"Could not open video {video_path}")
+            
+        base_time = datetime.fromisoformat(video_start_time.replace('Z', '+00:00'))
         
         # Get video properties
         fps = cap.get(cv2.CAP_PROP_FPS)
@@ -250,13 +250,17 @@ class VehicleTracker:
         progress = tqdm(total=total_frames, desc="Processing")
         
         # Process frames
+        observations = []
+        start_time = time.time()
+        
         while True:
             ret, frame = cap.read()
             if not ret:
                 break
             
             self.frame_number += 1
-            timestamp = self.frame_number / fps
+            timestamp_offset = self.frame_number / fps
+            current_time = base_time + timedelta(seconds=timestamp_offset)
             
             # Detect and track vehicles
             results = self.vehicle_model.track(
@@ -354,7 +358,7 @@ class VehicleTracker:
                             observation = {
                                 'observation_id': self.observation_id,
                                 'camera_id': self.camera_id,
-                                'timestamp': round(timestamp, 3),
+                                'timestamp': current_time.strftime("%Y-%m-%dT%H:%M:%SZ"),
                                 'local_track_id': str(track_id),
                                 'plate_text': metadata.get('plate_text', ''),
                                 'plate_confidence': float(metadata.get('plate_confidence', 0.0)),
@@ -382,24 +386,4 @@ class VehicleTracker:
         writer.release()
         progress.close()
         
-        elapsed = time.time() - start_time
-        
-        # Create observations JSON structure
-        observations_json = {
-            'camera_id': self.camera_id,
-            'video': {
-                'source': video_path,
-                'fps': fps,
-                'width': width,
-                'height': height,
-                'total_frames': total_frames
-            },
-            'observations': observations
-        }
-        
-        return {
-            'video_path': str(output_video),
-            'observations': observations_json,
-            'track_count': len(self.track_metadata),
-            'elapsed_time': elapsed
-        }
+        return observations

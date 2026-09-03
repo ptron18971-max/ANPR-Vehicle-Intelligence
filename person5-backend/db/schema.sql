@@ -104,3 +104,16 @@ CREATE TABLE intelligence_events (
     time_range_end             TIMESTAMPTZ,
     created_at                  TIMESTAMPTZ DEFAULT now()
 );
+-- Predictions (Person 4)
+CREATE TABLE vehicle_predictions (
+    vehicle_id VARCHAR PRIMARY KEY REFERENCES vehicles(vehicle_id),
+    predictions JSONB,
+    updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Analytics (Person 4)
+CREATE TABLE system_analytics (
+    id SERIAL PRIMARY KEY,
+    data JSONB,
+    created_at TIMESTAMPTZ DEFAULT now()
+);

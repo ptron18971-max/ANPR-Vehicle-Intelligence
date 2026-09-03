@@ -1,7 +1,69 @@
 {
-  "vehicle_id": "VEH_8421",
-  "event_type": "TRAJECTORY_ANOMALY",
-  "severity": "MEDIUM",
-  "confidence": 0.87,
-  "reason": "Travel time 3.1x historical average"
+  "alerts": [],
+  "predictions": {
+    "VEH_1001": {
+      "graph_based": [],
+      "history_based": []
+    }
+  },
+  "analytics": {
+    "busiest_cameras": [
+      [
+        "C17",
+        1
+      ],
+      [
+        "C23",
+        1
+      ],
+      [
+        "C29",
+        1
+      ],
+      [
+        "C35",
+        1
+      ]
+    ],
+    "congested_camera_hours": [],
+    "origin_destination_counts": {
+      "C17->C35": 1
+    },
+    "most_common_routes": [
+      {
+        "route": [
+          "C17",
+          "C23",
+          "C29",
+          "C35"
+        ],
+        "count": 1
+      }
+    ],
+    "edge_travel_time_stats": {
+      "C17->C23": {
+        "avg": 150.0,
+        "min": 150.0,
+        "max": 150.0,
+        "n": 1
+      },
+      "C23->C29": {
+        "avg": 150.0,
+        "min": 150.0,
+        "max": 150.0,
+        "n": 1
+      },
+      "C29->C35": {
+        "avg": 150.0,
+        "min": 150.0,
+        "max": 150.0,
+        "n": 1
+      }
+    },
+    "average_speed_kmh": {
+      "C17->C23": 29.7,
+      "C23->C29": 15.4,
+      "C29->C35": 18.5
+    }
+  }
 }

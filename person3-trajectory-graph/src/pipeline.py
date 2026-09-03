@@ -154,12 +154,14 @@ def export_trajectories_for_person4(vehicle_obs, graph, output_path="../../docs/
 
 def run_person3_pipeline():
     print("Running Person 3 Pipeline...")
-    with open("../data/observation.json", "r") as f:
+    with open("../../docs/contracts/person2_to_person3.json", "r") as f:
         obs_data = json.load(f)
 
     vehicle_obs = defaultdict(list)
     for obs in obs_data:
-        obs["timestamp"] = datetime.strptime(obs["timestamp"], "%Y-%m-%dT%H:%M:%S")
+        # Support timestamps that already have the 'Z' appended from P1/P2
+        ts_str = obs["timestamp"].replace("Z", "")
+        obs["timestamp"] = datetime.strptime(ts_str, "%Y-%m-%dT%H:%M:%S")
         vehicle_obs[obs["vehicle_id"]].append(obs)
 
     results, stats, total_input_vehicles = export_trajectories_for_person4(vehicle_obs, G)

@@ -1,0 +1,80 @@
+[
+  {
+    "vehicle_id": "VEH_1001",
+    "camera_id": "C17",
+    "timestamp": "2024-08-27T01:02:00Z",
+    "plate_text": "KA01AB1234",
+    "identity_confidence": 0.0,
+    "appearance_confidence": 0.0,
+    "supporting_evidence": {
+      "appearance_similarity": 0.0,
+      "plate_match_score": 0.0,
+      "attribute_match_score": 0.0,
+      "matched_against_id": null,
+      "match_strategy": "new_registration",
+      "details": {
+        "reason": "no candidate cleared the confidence threshold"
+      }
+    }
+  },
+  {
+    "vehicle_id": "VEH_1001",
+    "camera_id": "C23",
+    "timestamp": "2024-08-27T01:04:30Z",
+    "plate_text": "KA01AB1234",
+    "identity_confidence": 1.0,
+    "appearance_confidence": 1.0,
+    "supporting_evidence": {
+      "appearance_similarity": 1.0,
+      "plate_match_score": 1.0,
+      "attribute_match_score": 1.0,
+      "matched_against_id": "VEH_1001",
+      "match_strategy": "multimodal_fusion",
+      "details": {
+        "matched_vector_id": 0,
+        "camera_id": "C17",
+        "timestamp": "2024-08-27T01:02:00Z"
+      }
+    }
+  },
+  {
+    "vehicle_id": "VEH_1001",
+    "camera_id": "C29",
+    "timestamp": "2024-08-27T01:07:00Z",
+    "plate_text": "KA01AB1234",
+    "identity_confidence": 1.0,
+    "appearance_confidence": 1.0,
+    "supporting_evidence": {
+      "appearance_similarity": 1.0,
+      "plate_match_score": 1.0,
+      "attribute_match_score": 1.0,
+      "matched_against_id": "VEH_1001",
+      "match_strategy": "multimodal_fusion",
+      "details": {
+        "matched_vector_id": 1,
+        "camera_id": "C23",
+        "timestamp": "2024-08-27T01:04:30Z"
+      }
+    }
+  },
+  {
+    "vehicle_id": "VEH_1001",
+    "camera_id": "C35",
+    "timestamp": "2024-08-27T01:09:30Z",
+    "plate_text": "KA01AB1234",
+    "identity_confidence": 1.0,
+    "appearance_confidence": 1.0,
+    "supporting_evidence": {
+      "appearance_similarity": 1.0,
+      "plate_match_score": 1.0,
+      "attribute_match_score": 1.0,
+      "matched_against_id": "VEH_1001",
+      "match_strategy": "multimodal_fusion",
+      "details": {
+        "matched_vector_id": 2,
+        "camera_id": "C29",
+        "timestamp": "2024-08-27T01:07:00Z"
+      }
+    }
+  }
+]
