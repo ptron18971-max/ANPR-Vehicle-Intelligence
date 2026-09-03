@@ -7,16 +7,11 @@ pillow>=10.0.0
 
 # Scientific & Metric Learning
 numpy>=1.24.0
-scipy>=1.11.0
-scikit-learn>=1.3.0
 faiss-cpu>=1.7.4
 
 # Data Contracts & Fuzzy Matching
 pydantic>=2.5.0
 rapidfuzz>=3.5.0
 
-# Utilities, Testing & Visualization
+# Testing
 pytest>=7.4.0
-rich>=13.7.0
-matplotlib>=3.8.0
-tqdm>=4.66.0

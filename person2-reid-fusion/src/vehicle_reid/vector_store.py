@@ -2,7 +2,10 @@ import faiss
 import numpy as np
 import pickle
 import os
-from typing import List, Dict, Any, Tuple
+import re
+from typing import List, Dict, Any, Optional, Tuple
+
+_VEHICLE_ID_RE = re.compile(r"^VEH_(\d+)$")
 
 class FaissVectorStore:
     def __init__(self, dimension: int = 512):
@@ -59,6 +62,26 @@ class FaissVectorStore:
             })
             
         return results
+
+    def get_max_vehicle_number(self) -> Optional[int]:
+        """Scans stored metadata for the highest numeric suffix among "VEH_<n>" IDs.
+
+        Used to re-sync a vehicle-ID counter after loading a persisted store, so a
+        freshly restarted pipeline doesn't re-mint IDs that already exist on disk.
+        Returns None if the store is empty or contains no "VEH_<n>"-style IDs
+        (e.g. IDs were assigned by some other convention).
+        """
+        max_number = None
+        for metadata in self.metadata_store.values():
+            vehicle_id = metadata.get("vehicle_id") if isinstance(metadata, dict) else None
+            if not vehicle_id:
+                continue
+            match = _VEHICLE_ID_RE.match(str(vehicle_id))
+            if match:
+                number = int(match.group(1))
+                if max_number is None or number > max_number:
+                    max_number = number
+        return max_number
 
     def save(self, index_path: str, metadata_path: str) -> None:
         """Saves the FAISS index and companion metadata store to disk."""

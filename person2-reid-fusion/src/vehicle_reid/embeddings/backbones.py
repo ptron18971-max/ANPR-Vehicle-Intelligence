@@ -71,7 +71,7 @@ if HAS_TORCH:
                 import torchvision.models as models
                 if hasattr(models, backbone_name):
                     model_fn = getattr(models, backbone_name)
-                    base = model_fn(pretrained=pretrained)
+                    base = self._build_torchvision_backbone(models, model_fn, backbone_name, pretrained)
                     self.backbone = nn.Sequential(*list(base.children())[:-2])
                     in_features = 2048 if "resnet50" in backbone_name else 512
                 else:
@@ -90,6 +90,23 @@ if HAS_TORCH:
                 )
             else:
                 self.projection = nn.Identity()
+
+        @staticmethod
+        def _build_torchvision_backbone(models_module, model_fn, backbone_name: str, pretrained: bool) -> Any:
+            """Construct a torchvision backbone using the modern weights= API.
+
+            torchvision >=0.13 deprecated the `pretrained=` bool kwarg in favor of
+            `weights=<Enum>.DEFAULT`; the old kwarg is scheduled for removal. Falls back to
+            the legacy kwarg only if `get_model_weights` isn't available (older torchvision).
+            """
+            if not pretrained:
+                return model_fn(weights=None)
+            try:
+                weights_enum = models_module.get_model_weights(backbone_name).DEFAULT
+                return model_fn(weights=weights_enum)
+            except AttributeError:
+                # torchvision < 0.14 has no get_model_weights(); use the legacy kwarg.
+                return model_fn(pretrained=True)
 
         def forward(self, x: Any) -> Any:
             """Extract normalized embedding vector from batch of images."""

@@ -18,6 +18,20 @@ class VehicleReIDPipeline:
         self.fusion_engine = fusion_engine
         self.confidence_threshold = confidence_threshold
         self._vehicle_counter = 1000
+        self.sync_vehicle_counter()
+
+    def sync_vehicle_counter(self) -> None:
+        """Re-syncs the vehicle-ID counter from whatever is currently in vector_store.
+
+        Call this after `vector_store.load(...)` (or any other point where the
+        store's contents changed underneath the pipeline) so newly minted
+        "VEH_<n>" IDs never collide with IDs already present in the store. It is
+        also called automatically at construction time, which covers the case
+        where an already-populated (e.g. pre-loaded) vector_store is passed in.
+        """
+        max_existing = self.vector_store.get_max_vehicle_number()
+        if max_existing is not None:
+            self._vehicle_counter = max(self._vehicle_counter, max_existing)
 
     def _generate_new_vehicle_id(self) -> str:
         self._vehicle_counter += 1
@@ -51,8 +65,14 @@ class VehicleReIDPipeline:
             supporting_evidence = SupportingEvidence(**best_match["supporting_evidence"])
         else:
             canonical_vehicle_id = self._generate_new_vehicle_id()
-            identity_confidence = 1.0
-            appearance_confidence = 1.0
+            # No candidate cleared the threshold, so we have zero corroborating
+            # evidence that this is a re-appearance of a known vehicle. This is
+            # the least-certain outcome of the pipeline (it may be a genuinely
+            # new vehicle, OR a missed re-identification) -- report it as such
+            # (0.0) rather than as a confident match, so downstream consumers
+            # (e.g. trajectory fusion) don't over-trust an unverified new identity.
+            identity_confidence = 0.0
+            appearance_confidence = 0.0
             supporting_evidence = SupportingEvidence(
                 appearance_similarity=0.0,
                 plate_match_score=0.0,

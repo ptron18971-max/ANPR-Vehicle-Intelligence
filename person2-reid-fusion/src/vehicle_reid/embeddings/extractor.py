@@ -9,12 +9,12 @@ from vehicle_reid.embeddings.preprocessor import VehicleImagePreprocessor
 from vehicle_reid.embeddings.backbones import (
     HAS_TORCH,
     HAS_TIMM,
-    VehicleReIDNet,
     MockEmbeddingBackbone,
 )
 
 if HAS_TORCH:
     import torch
+    from vehicle_reid.embeddings.backbones import VehicleReIDNet
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +32,7 @@ class VehicleEmbeddingExtractor(BaseEmbeddingExtractor):
         use_clahe: bool = False,
         use_gem: bool = True,
         pretrained: bool = True,
+        allow_mock_fallback: bool = False,
     ):
         """Initialize vehicle embedding extractor.
 
@@ -44,6 +45,17 @@ class VehicleEmbeddingExtractor(BaseEmbeddingExtractor):
             use_clahe: Whether to apply CLAHE contrast enhancement for low-light frames.
             use_gem: Whether to use Generalized Mean (GeM) pooling over standard average pooling.
             pretrained: Whether to load ImageNet/timm pretrained weights if custom checkpoint is not supplied.
+            allow_mock_fallback: If PyTorch IS installed but real backbone construction fails
+                (bad weights_path, unreachable pretrained-weights host, unknown model_name,
+                CUDA error, etc.), this controls what happens:
+                  * False (default): raise a RuntimeError. A real Re-ID engine failing to load
+                    its model is a production incident, not something to paper over.
+                  * True: log a warning and silently fall back to MockEmbeddingBackbone, which
+                    produces deterministic pseudo-random vectors with NO relationship to actual
+                    vehicle appearance. Only use this for local dev / offline unit tests.
+                Note: this flag does NOT affect the case where PyTorch itself is not installed
+                at all -- that is treated as an explicit lightweight/dev environment and always
+                falls back to the mock backbone (with a warning logged).
         """
         self._embedding_dim = embedding_dim
         self._model_name = model_name
@@ -81,6 +93,16 @@ class VehicleEmbeddingExtractor(BaseEmbeddingExtractor):
                 self.model.eval()
                 self._use_mock = False
             except Exception as e:
+                if not allow_mock_fallback:
+                    raise RuntimeError(
+                        f"Failed to initialize PyTorch Re-ID backbone '{model_name}' "
+                        f"(embedding_dim={embedding_dim}, pretrained={pretrained}, "
+                        f"weights_path={weights_path!r}): {e}. Refusing to silently fall back "
+                        "to a mock/random embedding generator, since that would make identity "
+                        "matching effectively random with no visible failure. Pass "
+                        "allow_mock_fallback=True to explicitly opt into the mock backbone "
+                        "for local dev / offline unit tests."
+                    ) from e
                 logger.warning(f"Could not initialize PyTorch model ({e}). Falling back to mock extractor.")
                 self.model = MockEmbeddingBackbone(embedding_dim=embedding_dim)
                 self._use_mock = True
