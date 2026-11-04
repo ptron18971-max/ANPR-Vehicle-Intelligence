@@ -47,7 +47,7 @@ Product name: "City Vehicle Intelligence System" (whole platform) / "Vehicle Int
 
 ## Evidence on Hand
 
-Bengaluru is the real target deployment city. All current camera positions, vehicle records, plates, and alerts are synthetic/seeded (`person5-backend/db/seed*.sql`) — there is no live camera integration yet and no real incidents, case studies, or press. Future work must not present seed data as real deployment history, and must not invent a different city, a live camera count, or a go-live date.
+Bengaluru is the real target deployment city. All current camera positions, vehicle records, plates, and alerts are synthetic/seeded (`backend/db/seed*.sql`) — there is no live camera integration yet and no real incidents, case studies, or press. Future work must not present seed data as real deployment history, and must not invent a different city, a live camera count, or a go-live date.
 
 ## Product Principles
 

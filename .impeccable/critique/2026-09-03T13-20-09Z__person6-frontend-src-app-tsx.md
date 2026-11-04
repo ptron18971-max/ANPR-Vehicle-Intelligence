@@ -1,15 +1,15 @@
 ---
-target: person6-frontend dashboard (App.tsx + components)
+target: frontend dashboard (App.tsx + components)
 total_score: 32
 max_score: 40
 na_heuristics: 
 p0_count: 0
 p1_count: 3
-target_identity: "file:/Users/meya/Desktop/sih/person6-frontend/src/App.tsx"
+target_identity: "file:/Users/meya/Desktop/sih/frontend/src/App.tsx"
 target_fingerprint: "sha256:886b1eb80b3ed1ba5a4b0bbee427150a3476261d502c481d203f03599e359cd9"
-target_path: /Users/meya/Desktop/sih/person6-frontend/src/App.tsx
+target_path: /Users/meya/Desktop/sih/frontend/src/App.tsx
 timestamp: 2026-09-03T13-20-09Z
-slug: person6-frontend-src-app-tsx
+slug: frontend-src-app-tsx
 closed: true
 ---
 ## Design Health Score

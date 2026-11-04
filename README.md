@@ -7,12 +7,12 @@ reconstruction, and traffic intelligence platform.
 
 | Folder | Owner | Responsibility |
 |---|---|---|
-| `person1-cv-anpr/` | Person 1 | Vehicle detection, tracking, plate detection, OCR |
-| `person2-reid-fusion/` | Person 2 | Vehicle re-identification, cross-camera identity fusion |
-| `person3-trajectory-graph/` | Person 3 | Camera graph, trajectory reconstruction |
-| `person4-intelligence/` | Person 4 | Route prediction, traffic analytics, anomaly detection |
-| `person5-backend/` | Person 5 | APIs, database, event ingestion, deployment |
-| `person6-frontend/` | Person 6 | GIS dashboard, operator interface |
+| `cv/` | Person 1 | Vehicle detection, tracking, plate detection, OCR |
+| `fusion/` | Person 2 | Vehicle re-identification, cross-camera identity fusion |
+| `graph/` | Person 3 | Camera graph, trajectory reconstruction |
+| `intelligence/` | Person 4 | Route prediction, traffic analytics, anomaly detection |
+| `backend/` | Person 5 | APIs, database, event ingestion, deployment |
+| `frontend/` | Person 6 | GIS dashboard, operator interface |
 
 ## Data flow
 
